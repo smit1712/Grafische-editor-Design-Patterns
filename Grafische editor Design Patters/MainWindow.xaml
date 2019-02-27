@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Grafische_editor_Design_Patters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="350" Width="525">
     <Grid>
         <DockPanel>
             <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
-                <RadioButton Name="LineButton" Content="Line" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="LineButton_Click"/>
-                <RadioButton Name="EllipseButton" Background="#00000000" Content="Ellipse" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="EllipseButton_Click"/>
+                <RadioButton Name="LineButton" Content="Line" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="LineButton_Click" IsChecked="True"/>
+                <RadioButton Name="EllipseButton" Content="Ellipse" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="EllipseButton_Click"/>
                 <RadioButton Name="RectangleButton" BorderBrush="#FF969696" Content="Rectangle" Height="50" Width="80" GroupName="ShapeGroup" Click="RectangleButton_Click"/>
             </ToolBar>
 
