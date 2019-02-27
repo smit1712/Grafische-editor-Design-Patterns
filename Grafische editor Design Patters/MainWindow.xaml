@@ -7,6 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <DockPanel>
+            <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
+                <RadioButton Name="LineButton" Content="Line" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="LineButton_Click"/>
+                <RadioButton Name="EllipseButton" Background="#00000000" Content="Ellipse" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="EllipseButton_Click"/>
+                <RadioButton Name="RectangleButton" BorderBrush="#FF969696" Content="Rectangle" Height="50" Width="80" GroupName="ShapeGroup" Click="RectangleButton_Click"/>
+            </ToolBar>
+
+            <Canvas Name="MyCanvas" Background="AntiqueWhite" Height="300" Width="525" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove">
+
+                <Line X1="10" Y1="10" X2="50" Y2="50" Stroke="Black" StrokeThickness="4"/>
+
+                <Ellipse Fill="Yellow" Height="50" Width="100" StrokeThickness="2" Stroke="Black" Canvas.Left="100" Canvas.Top="20"/>
+
+                <Rectangle Fill="Blue" Height="50" Width="100" Canvas.Left="240" Canvas.Top="20"/>
+
+            </Canvas>
+        </DockPanel>
     </Grid>
 </Window>
