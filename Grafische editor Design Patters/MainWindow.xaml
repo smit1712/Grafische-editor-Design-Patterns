@@ -13,6 +13,8 @@
                 <RadioButton Name="EllipseButton" Content="Ellipse" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="EllipseButton_Click"/>
                 <RadioButton Name="RectangleButton" BorderBrush="#FF969696" Content="Rectangle" Height="50" Width="80" GroupName="ShapeGroup" Click="RectangleButton_Click"/>
                 <RadioButton Name="SelectButton" BorderBrush="#FF969696" Content="Select" Height="50" Width="80" GroupName="ShapeGroup" Click="SelectButton_Click"/>
+                <RadioButton Name="MoveButton" BorderBrush="#FF969696" Content="Move" Height="50" Width="80" GroupName="ShapeGroup" Click="MoveButton_Click" />
+                <RadioButton Name="ResizeButton" BorderBrush="#FF969696" Content="Resize" Height="50" Width="80" GroupName="ShapeGroup" Click="ResizeButton_Click" />
             </ToolBar>
 
             <Canvas Name="MyCanvas" Background="AntiqueWhite" Width="708" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,10">
@@ -21,7 +23,7 @@
 
                 <Ellipse Fill="Yellow" Height="50" Width="100" StrokeThickness="2" Stroke="Black" Canvas.Left="100" Canvas.Top="20"/>
 
-                <Rectangle Fill="Blue" Height="50" Width="100" Canvas.Left="240" Canvas.Top="20"/>
+                <Rectangle Fill="Blue" Height="50" Width="100" Canvas.Left="251" Canvas.Top="20"/>
 
 
             </Canvas>

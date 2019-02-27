@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Media;
 
-
 namespace Grafische_editor_Design_Patters
 {
-    class Ellipsen : Figuren
+    class Lijn : Figuren
     {
-        public Ellipsen(Ellipse E) : base(E)
+        public Lijn(Line L) : base(L)
         {
-            
+
         }
         public override void Select()
         {
@@ -24,4 +23,5 @@ namespace Grafische_editor_Design_Patters
             MyFigure.Stroke = Brushes.Green;
         }
     }
+
 }

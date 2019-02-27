@@ -20,12 +20,16 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     public partial class MainWindow : Window
     {
+
         private enum MyShape
         {
-            Line, Ellipse, Rectangle , SelectBox
-        }       
+            Line, Ellipse, Rectangle, SelectBox, Move, Resize
+        }
+        Point start;
+        Point end;
         private List<Figuren> AllFiguren = new List<Figuren>();
         private MyShape currShape = MyShape.SelectBox;
+        private List<Figuren> SelectedFiguren = new List<Figuren>();
         Border SelectBorder = new Border() //selectborder definition
         {
             BorderBrush = Brushes.Black,
@@ -59,17 +63,28 @@ namespace Grafische_editor_Design_Patters
         {
             currShape = MyShape.SelectBox;
         }
-        Point start;
-        Point end;
-
+        private void MoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            currShape = MyShape.Move;
+        }
+        private void ResizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            currShape = MyShape.Resize;
+        }
         private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             start = e.GetPosition(this);
-        }
+            if (currShape == MyShape.SelectBox)
+                SelectBorder.Visibility = Visibility.Visible;
+            else
+                SelectBorder.Visibility = Visibility.Hidden;
 
+        }
         private void MyCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            switch(currShape)
+            SelectBorder.Visibility = Visibility.Visible;
+
+            switch (currShape)
             {
                 case MyShape.Line:
                     DrawLine();
@@ -83,6 +98,12 @@ namespace Grafische_editor_Design_Patters
                 case MyShape.SelectBox:
                     SelectShape();
                     break;
+                case MyShape.Move:
+                    MoveShape();
+                    break;
+                case MyShape.Resize:
+                    ResizeShape();
+                    break;
                 default:
                     return;
             }
@@ -93,7 +114,18 @@ namespace Grafische_editor_Design_Patters
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 end = e.GetPosition(this);
+                if (currShape == MyShape.SelectBox)
+                {
+                    double moveX = end.X - start.X;
+                    double moveY = end.Y - start.Y;
+                    Canvas.SetLeft(SelectBorder, start.X);
+                    Canvas.SetTop(SelectBorder, start.Y);
+                    Canvas.SetRight(SelectBorder, end.X);
+                    Canvas.SetBottom(SelectBorder, end.Y);
+                    SelectShape();
+                }
             }
+
         }
 
         private void DrawLine()
@@ -106,6 +138,8 @@ namespace Grafische_editor_Design_Patters
                 X2 = end.X,
                 Y2 = end.Y - 50
             };
+            Lijn ELlipsenFiguren = new Lijn(newLine);
+            AllFiguren.Add(ELlipsenFiguren);
 
             MyCanvas.Children.Add(newLine);
         }
@@ -120,7 +154,8 @@ namespace Grafische_editor_Design_Patters
                 Height = 10,
                 Width = 10          
             };
-
+            Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
+            AllFiguren.Add(ELlipsenFiguren);
             if(end.X >= start.X)
             {
                 newEllipse.SetValue(Canvas.LeftProperty, start.X);
@@ -153,6 +188,8 @@ namespace Grafische_editor_Design_Patters
                 Fill = Brushes.Red,
                 StrokeThickness = 4,
             };
+            Rechthoeken ELlipsenFiguren = new Rechthoeken(newRectangle);
+            AllFiguren.Add(ELlipsenFiguren);
 
             if (end.X >= start.X)
             {
@@ -200,9 +237,49 @@ namespace Grafische_editor_Design_Patters
             {
                 SelectBorder.SetValue(Canvas.TopProperty, end.Y - 50);
                 SelectBorder.Height = start.Y - end.Y;
-            }           
+            }
+            SelectInBorder();
+        }
+        private void SelectInBorder()
+        {
+            SelectedFiguren.Clear();
+            foreach (Figuren F in AllFiguren)
+            {
+                F.Deslelect();
+                F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
+                if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y)
+                {
+                    SelectedFiguren.Add(F);
+                    F.Select();
+                }
+            }
+        }
+       public void MoveShape()
+       {
+            double moveX = end.X - start.X;
+            double moveY = end.Y - start.Y;
+            Canvas.SetLeft(SelectBorder, Canvas.GetLeft(SelectBorder) + moveX);
+            Canvas.SetTop(SelectBorder, Canvas.GetTop(SelectBorder) + moveY);
 
+            foreach (Figuren F in SelectedFiguren)
+            {
+                F.Move(moveX, moveY);
+
+            }
         }
 
+        public void ResizeShape()
+        {
+            double moveX = end.X - start.X;
+            double moveY = end.Y - start.Y;
+
+            if (moveX >= 0 && moveY >= 0)
+            {
+                foreach (Figuren F in SelectedFiguren)
+                {
+                    F.Resize(moveX, moveY);
+                }
+            }
+        }        
     }
 }
