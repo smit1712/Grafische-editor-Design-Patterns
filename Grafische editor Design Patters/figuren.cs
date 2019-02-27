@@ -8,7 +8,7 @@ namespace Grafische_editor_Design_Patters
 {
     public class Figuren 
     {
-        private List<Figuren> Groep;
+        private List<Figuren> Groep = new List<Figuren>();
         public int X, Y,Width,Height;
         public List<Figuren> GetGroep()
         {

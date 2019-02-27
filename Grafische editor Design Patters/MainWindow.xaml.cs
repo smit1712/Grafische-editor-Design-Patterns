@@ -22,16 +22,24 @@ namespace Grafische_editor_Design_Patters
     {
         private enum MyShape
         {
-            Line, Ellipse, Rectangle
-        }
-
-        private MyShape currShape = MyShape.Line;
+            Line, Ellipse, Rectangle , SelectBox
+        }       
+        private List<Figuren> AllFiguren = new List<Figuren>();
+        private MyShape currShape = MyShape.SelectBox;
+        Border SelectBorder = new Border() //selectborder definition
+        {
+            BorderBrush = Brushes.Black,
+            BorderThickness = new Thickness(2),
+            Padding = new Thickness(25),
+        };
 
         public MainWindow()
         {
             InitializeComponent();
+            MyCanvas.Children.Add(SelectBorder);//add selectborder to canvas
+
         }
-        
+
         private void LineButton_Click(object sender, RoutedEventArgs e)
         {
             currShape = MyShape.Line;
@@ -47,6 +55,10 @@ namespace Grafische_editor_Design_Patters
             currShape = MyShape.Rectangle;
         }
 
+        private void SelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            currShape = MyShape.SelectBox;
+        }
         Point start;
         Point end;
 
@@ -67,6 +79,9 @@ namespace Grafische_editor_Design_Patters
                     break;
                 case MyShape.Rectangle:
                     DrawRectangle();
+                    break;
+                case MyShape.SelectBox:
+                    SelectShape();
                     break;
                 default:
                     return;
@@ -162,6 +177,31 @@ namespace Grafische_editor_Design_Patters
             }
 
             MyCanvas.Children.Add(newRectangle);
+        }
+        private void SelectShape()
+        {
+            if (end.X >= start.X)
+            {
+                SelectBorder.SetValue(Canvas.LeftProperty, start.X);
+                SelectBorder.Width = end.X - start.X;
+            }
+            else
+            {
+                SelectBorder.SetValue(Canvas.LeftProperty, end.X);
+                SelectBorder.Width = start.X - end.X;
+            }
+
+            if (end.Y >= start.Y)
+            {
+                SelectBorder.SetValue(Canvas.TopProperty, start.Y - 50);
+                SelectBorder.Height = end.Y - start.Y;
+            }
+            else
+            {
+                SelectBorder.SetValue(Canvas.TopProperty, end.Y - 50);
+                SelectBorder.Height = start.Y - end.Y;
+            }           
+
         }
 
     }
