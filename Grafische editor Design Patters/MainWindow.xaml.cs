@@ -23,27 +23,35 @@ namespace Grafische_editor_Design_Patters
 
         private enum MyShape
         {
-            Line, Ellipse, Rectangle, SelectBox, Move, Resize
+            Line, Ellipse, Rectangle, SelectBox, Move, Resize, Group,DeGroup
         }
         Point start;
         Point end;
         private List<Figuren> AllFiguren = new List<Figuren>();
         private MyShape currShape = MyShape.SelectBox;
         private List<Figuren> SelectedFiguren = new List<Figuren>();
+
         Border SelectBorder = new Border() //selectborder definition
         {
             BorderBrush = Brushes.Gray,
             BorderThickness = new Thickness(1),
             Padding = new Thickness(5),
         };
+        Border GroupBorder = new Border() //Group definition
+        {
+            BorderBrush = Brushes.Red,
+            BorderThickness = new Thickness(2),
+            Padding = new Thickness(10),
+        };
 
         public MainWindow()
         {
             InitializeComponent();
             MyCanvas.Children.Add(SelectBorder);//add selectborder to canvas
+            MyCanvas.Children.Add(GroupBorder);//add selectborder to canvas
 
         }
-       
+
         private void EllipseButton_Click(object sender, RoutedEventArgs e)
         {
             currShape = MyShape.Ellipse;
@@ -66,6 +74,16 @@ namespace Grafische_editor_Design_Patters
         {
             currShape = MyShape.Resize;
         }
+        private void GroupButton_Click(object sender, RoutedEventArgs e)
+        {
+            currShape = MyShape.Group;
+        }
+        private void DeGroupButton_Click(object sender, RoutedEventArgs e)
+        {
+            currShape = MyShape.DeGroup;
+        }
+
+
         private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             start = e.GetPosition(this);
@@ -74,11 +92,21 @@ namespace Grafische_editor_Design_Patters
             else
                 SelectBorder.Visibility = Visibility.Hidden;
 
+
+            if (currShape == MyShape.Group || currShape == MyShape.DeGroup)
+                GroupBorder.Visibility = Visibility.Visible;
+            else
+                GroupBorder.Visibility = Visibility.Hidden;
+
         }
         private void MyCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (currShape == MyShape.SelectBox)
                 SelectBorder.Visibility = Visibility.Visible;
+
+
+            if (currShape == MyShape.Group || currShape == MyShape.DeGroup)
+                GroupBorder.Visibility = Visibility.Visible;
 
             switch (currShape)
             {               
@@ -96,6 +124,12 @@ namespace Grafische_editor_Design_Patters
                     break;
                 case MyShape.Resize:
                     ResizeShape();
+                    break;
+                case MyShape.Group:
+                    Group();
+                    break;
+                case MyShape.DeGroup:
+                    DeGroup();
                     break;
                 default:
                     return;
@@ -116,6 +150,19 @@ namespace Grafische_editor_Design_Patters
                     Canvas.SetRight(SelectBorder, end.X);
                     Canvas.SetBottom(SelectBorder, end.Y);
                     SelectShape();
+                }
+                if (currShape == MyShape.Group || currShape == MyShape.DeGroup)
+                {
+                    double moveX = end.X - start.X;
+                    double moveY = end.Y - start.Y;
+                    Canvas.SetLeft(GroupBorder, start.X);
+                    Canvas.SetTop(GroupBorder, start.Y);
+                    Canvas.SetRight(GroupBorder, end.X);
+                    Canvas.SetBottom(GroupBorder, end.Y);
+                    if (currShape == MyShape.Group)
+                        Group();
+                    else
+                        DeGroup();
                 }
             }
 
@@ -239,6 +286,7 @@ namespace Grafische_editor_Design_Patters
 
             foreach (Figuren F in SelectedFiguren)
             {
+                if(!SelectedFiguren.Contains(F.Parent))
                 F.Move(moveX, moveY);
 
             }
@@ -256,6 +304,73 @@ namespace Grafische_editor_Design_Patters
                     F.Resize(moveX, moveY);
                 }
             }
-        }        
+        }
+        public void Group()
+        {
+            if (end.X >= start.X)
+            {
+                GroupBorder.SetValue(Canvas.LeftProperty, start.X);
+                GroupBorder.Width = end.X - start.X;
+            }
+            else
+            {
+                GroupBorder.SetValue(Canvas.LeftProperty, end.X);
+                GroupBorder.Width = start.X - end.X;
+            }
+
+            if (end.Y >= start.Y)
+            {
+                GroupBorder.SetValue(Canvas.TopProperty, start.Y - 50);
+                GroupBorder.Height = end.Y - start.Y;
+            }
+            else
+            {
+                GroupBorder.SetValue(Canvas.TopProperty, end.Y - 50);
+                GroupBorder.Height = start.Y - end.Y;
+            }
+
+            foreach (Figuren F in AllFiguren)
+            {
+                F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
+                if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y)
+                {
+                    SelectedFiguren[0].InsertGroep(F);
+                }
+            }
+
+        }
+        public void DeGroup()
+        {
+            if (end.X >= start.X)
+            {
+                GroupBorder.SetValue(Canvas.LeftProperty, start.X);
+                GroupBorder.Width = end.X - start.X;
+            }
+            else
+            {
+                GroupBorder.SetValue(Canvas.LeftProperty, end.X);
+                GroupBorder.Width = start.X - end.X;
+            }
+
+            if (end.Y >= start.Y)
+            {
+                GroupBorder.SetValue(Canvas.TopProperty, start.Y - 50);
+                GroupBorder.Height = end.Y - start.Y;
+            }
+            else
+            {
+                GroupBorder.SetValue(Canvas.TopProperty, end.Y - 50);
+                GroupBorder.Height = start.Y - end.Y;
+            }
+
+            foreach (Figuren F in AllFiguren)
+            {
+                F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
+                if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y && SelectedFiguren[0] != null)
+                {
+                    SelectedFiguren[0].RemoveFromGroep(F);
+                }
+            }
+        }
     }
 }

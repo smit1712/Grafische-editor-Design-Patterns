@@ -14,6 +14,9 @@
                 <RadioButton Name="SelectButton" BorderBrush="#FF969696" Content="Select" Height="50" Width="80" GroupName="ShapeGroup" Click="SelectButton_Click"/>
                 <RadioButton Name="MoveButton" BorderBrush="#FF969696" Content="Move" Height="50" Width="80" GroupName="ShapeGroup" Click="MoveButton_Click" />
                 <RadioButton Name="ResizeButton" BorderBrush="#FF969696" Content="Resize" Height="50" Width="80" GroupName="ShapeGroup" Click="ResizeButton_Click" />
+                <RadioButton Name="GroupButton" BorderBrush="#FF969696" Content="GroupIn" Height="50" Width="80" GroupName="ShapeGroup" Click="GroupButton_Click" />
+                <RadioButton Name="DeGroupButton" BorderBrush="#FF969696" Content="DeGroup" Height="50" Width="80" GroupName="ShapeGroup" Click="DeGroupButton_Click" />
+
             </ToolBar>
 
             <Canvas Name="MyCanvas" Background="AntiqueWhite" Width="1422" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,10">
