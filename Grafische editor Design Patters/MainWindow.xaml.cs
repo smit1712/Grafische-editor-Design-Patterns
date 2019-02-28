@@ -43,12 +43,7 @@ namespace Grafische_editor_Design_Patters
             MyCanvas.Children.Add(SelectBorder);//add selectborder to canvas
 
         }
-
-        private void LineButton_Click(object sender, RoutedEventArgs e)
-        {
-            currShape = MyShape.Line;
-        }
-
+       
         private void EllipseButton_Click(object sender, RoutedEventArgs e)
         {
             currShape = MyShape.Ellipse;
@@ -86,10 +81,7 @@ namespace Grafische_editor_Design_Patters
                 SelectBorder.Visibility = Visibility.Visible;
 
             switch (currShape)
-            {
-                case MyShape.Line:
-                    DrawLine();
-                    break;
+            {               
                 case MyShape.Ellipse:
                     DrawEllipse();
                     break;
@@ -128,23 +120,6 @@ namespace Grafische_editor_Design_Patters
             }
 
         }
-
-        private void DrawLine()
-        {
-            Line newLine = new Line()
-            {
-                Stroke = Brushes.Blue,
-                X1 = start.X,
-                Y1 = start.Y - 50,
-                X2 = end.X,
-                Y2 = end.Y - 50
-            };
-            Lijn ELlipsenFiguren = new Lijn(newLine);
-            AllFiguren.Add(ELlipsenFiguren);
-
-            MyCanvas.Children.Add(newLine);
-        }
-
         private void DrawEllipse()
         {
             Ellipse newEllipse = new Ellipse()
@@ -189,8 +164,8 @@ namespace Grafische_editor_Design_Patters
                 Fill = Brushes.Red,
                 StrokeThickness = 4,
             };
-            Rechthoeken ELlipsenFiguren = new Rechthoeken(newRectangle);
-            AllFiguren.Add(ELlipsenFiguren);
+            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
+            AllFiguren.Add(RectangleFiguren);
 
             if (end.X >= start.X)
             {
