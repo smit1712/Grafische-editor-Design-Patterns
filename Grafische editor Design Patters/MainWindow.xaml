@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Grafische_editor_Design_Patters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="720">
+        Title="MainWindow" Height="960" Width="1440">
     <Grid>
         <DockPanel>
             <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
@@ -17,7 +17,7 @@
                 <RadioButton Name="ResizeButton" BorderBrush="#FF969696" Content="Resize" Height="50" Width="80" GroupName="ShapeGroup" Click="ResizeButton_Click" />
             </ToolBar>
 
-            <Canvas Name="MyCanvas" Background="AntiqueWhite" Width="708" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,10">
+            <Canvas Name="MyCanvas" Background="AntiqueWhite" Width="1422" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,10">
 
                 <Line X1="10" Y1="10" X2="50" Y2="50" Stroke="Black" StrokeThickness="4"/>
 

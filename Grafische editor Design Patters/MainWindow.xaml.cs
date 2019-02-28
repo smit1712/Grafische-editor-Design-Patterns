@@ -32,9 +32,9 @@ namespace Grafische_editor_Design_Patters
         private List<Figuren> SelectedFiguren = new List<Figuren>();
         Border SelectBorder = new Border() //selectborder definition
         {
-            BorderBrush = Brushes.Black,
-            BorderThickness = new Thickness(2),
-            Padding = new Thickness(25),
+            BorderBrush = Brushes.Gray,
+            BorderThickness = new Thickness(1),
+            Padding = new Thickness(5),
         };
 
         public MainWindow()
@@ -82,7 +82,8 @@ namespace Grafische_editor_Design_Patters
         }
         private void MyCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            SelectBorder.Visibility = Visibility.Visible;
+            if (currShape == MyShape.SelectBox)
+                SelectBorder.Visibility = Visibility.Visible;
 
             switch (currShape)
             {
