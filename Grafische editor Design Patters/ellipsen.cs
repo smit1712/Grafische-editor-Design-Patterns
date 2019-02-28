@@ -11,7 +11,7 @@ namespace Grafische_editor_Design_Patters
 {
     class Ellipsen : Figuren
     {
-        public Ellipsen(Ellipse E) : base(E,"Ellpise")
+        public Ellipsen(Ellipse E) : base(E, "Ellipse")
         {
             
         }

@@ -377,26 +377,100 @@ namespace Grafische_editor_Design_Patters
                 }
             }
         }
+        public void Load()
+        {
+            StreamReader sr = new StreamReader(@"C:/GrafischeEditor/Save.txt");
+            List<string> read = new List<string>();
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                read.Add(line);
+            }
+            string[] result = read.ToArray();
+            for (int i = 0; i < result.Length; i++)
+            {
+                string[] position = result[i + 1].Split(' ');
+                int left = Convert.ToInt16(position[0]);
+                int top = Convert.ToInt16(position[1]);
+
+                switch (result[i])
+                {
+                    case "Rechthoek":
+                        position = result[i + 1].Split(' ');
+                        left = Convert.ToInt16(position[0]);
+                        top = Convert.ToInt16(position[1]);
+                        Rectangle newRectangle = new Rectangle()
+                        {
+                            Stroke = Brushes.Green,
+                            Fill = Brushes.Red,
+                            StrokeThickness = 4,
+                        };                        
+                        Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
+                        RectangleFiguren.UpdateXY(left, top);
+                        AllFiguren.Add(RectangleFiguren);
+                        i =+ 2;
+                        break;
+                    case "Ellipse":
+                        position = result[i + 1].Split(' ');
+                        left = Convert.ToInt16(position[0]);
+                        top = Convert.ToInt16(position[1]);
+                        Ellipse newEllipse = new Ellipse()
+                        {
+                            Stroke = Brushes.Green,
+                            Fill = Brushes.Red,
+                            StrokeThickness = 4,
+                            Height = 10,
+                            Width = 10
+                        };
+                        Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
+                        AllFiguren.Add(ELlipsenFiguren);
+                        ELlipsenFiguren.UpdateXY(left, top);
+                        AllFiguren.Add(ELlipsenFiguren);
+                        i = +2;
+                        break;
+                }
+            }
+        }
 
         public void Save()
         {
             StreamWriter sw = new StreamWriter(@"C:/GrafischeEditor/Save.txt");
+            int RecusionLevel = 1;
             foreach(Figuren F in AllFiguren)
             {
                 if(F.Isingroup == false)
                 {
-                    sw.WriteLine(F.GetGroep().Count().ToString());
+                    sw.WriteLine("Groep:" + F.GetGroep().Count().ToString());
                     sw.WriteLine(F.type);
                     sw.WriteLine(Canvas.GetLeft(F.GetShape()) +" "+ Canvas.GetTop(F.GetShape()) + " " + Canvas.GetRight(F.GetShape()) + " " + Canvas.GetBottom(F.GetShape()));
-                    foreach(Figuren fig in F.GetGroep())
-                    {
-                        sw.WriteLine(fig.GetGroep().Count().ToString());
-                        sw.WriteLine(fig.type);
-                        sw.WriteLine(Canvas.GetLeft(fig.GetShape()) + " " + Canvas.GetTop(fig.GetShape()) + " " + Canvas.GetRight(fig.GetShape()) + " " + Canvas.GetBottom(fig.GetShape()));
-                    }
+                    SaveChild(F, sw,RecusionLevel);
                 }
             }
             sw.Close();
+        }
+        private void SaveChild(Figuren F, StreamWriter sw, int Reclvl)
+        {
+            foreach (Figuren fig in F.GetGroep())
+            {
+                for (int i = 0; i < Reclvl; i++)
+                {
+                    sw.Write("-");
+                }
+                sw.WriteLine("Groep: " + fig.GetGroep().Count().ToString() +" ");
+                for (int i = 0; i < Reclvl; i++)
+                {
+                    sw.Write("-");
+                }
+                sw.WriteLine(fig.type);
+                for (int i = 0; i < Reclvl; i++)
+                {
+                    sw.Write("-");
+                }
+                sw.WriteLine(Canvas.GetLeft(fig.GetShape()) + " " + Canvas.GetTop(fig.GetShape()) + " " + Canvas.GetRight(fig.GetShape()) + " " + Canvas.GetBottom(fig.GetShape()));
+                Reclvl++;
+                if (fig.GetGroep().Count != 0)
+                SaveChild(fig, sw,Reclvl);
+            }
         }
 
     }

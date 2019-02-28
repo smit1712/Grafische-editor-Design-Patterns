@@ -67,13 +67,11 @@ namespace Grafische_editor_Design_Patters
             }
         }
         public void UpdateXY(double x, double y)
-        {
-            
+        {            
             X = x;
             Y = y + 50;
             Canvas.SetLeft(MyFigure, x);
-            Canvas.SetTop(MyFigure, y);
-            
+            Canvas.SetTop(MyFigure, y);            
         }
         public void Move(double x, double y)
         {           
