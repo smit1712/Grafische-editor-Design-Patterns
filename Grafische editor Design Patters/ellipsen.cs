@@ -11,7 +11,7 @@ namespace Grafische_editor_Design_Patters
 {
     class Ellipsen : Figuren
     {
-        public Ellipsen(Ellipse E) : base(E)
+        public Ellipsen(Ellipse E) : base(E,"Ellpise")
         {
             
         }
@@ -19,7 +19,7 @@ namespace Grafische_editor_Design_Patters
         {
             MyFigure.Stroke = Brushes.Black;
         }
-        public override void Deslelect()
+        public override void Deselect()
         {
             MyFigure.Stroke = Brushes.Green;
         }

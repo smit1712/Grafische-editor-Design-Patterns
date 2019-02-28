@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,10 @@ namespace Grafische_editor_Design_Patters
         private void DeGroupButton_Click(object sender, RoutedEventArgs e)
         {
             currShape = MyShape.DeGroup;
+        }
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
         }
 
 
@@ -268,7 +273,7 @@ namespace Grafische_editor_Design_Patters
             SelectedFiguren.Clear();
             foreach (Figuren F in AllFiguren)
             {
-                F.Deslelect();
+                F.Deselect();
                 F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
                 if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y)
                 {
@@ -372,5 +377,27 @@ namespace Grafische_editor_Design_Patters
                 }
             }
         }
+
+        public void Save()
+        {
+            StreamWriter sw = new StreamWriter(@"C:/GrafischeEditor/Save.txt");
+            foreach(Figuren F in AllFiguren)
+            {
+                if(F.Isingroup == false)
+                {
+                    sw.WriteLine(F.GetGroep().Count().ToString());
+                    sw.WriteLine(F.type);
+                    sw.WriteLine(Canvas.GetLeft(F.GetShape()) +" "+ Canvas.GetTop(F.GetShape()) + " " + Canvas.GetRight(F.GetShape()) + " " + Canvas.GetBottom(F.GetShape()));
+                    foreach(Figuren fig in F.GetGroep())
+                    {
+                        sw.WriteLine(fig.GetGroep().Count().ToString());
+                        sw.WriteLine(fig.type);
+                        sw.WriteLine(Canvas.GetLeft(fig.GetShape()) + " " + Canvas.GetTop(fig.GetShape()) + " " + Canvas.GetRight(fig.GetShape()) + " " + Canvas.GetBottom(fig.GetShape()));
+                    }
+                }
+            }
+            sw.Close();
+        }
+
     }
 }

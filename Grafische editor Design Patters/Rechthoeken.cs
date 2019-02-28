@@ -10,7 +10,7 @@ namespace Grafische_editor_Design_Patters
 {
     class Rechthoeken : Figuren
     {
-        public Rechthoeken(Rectangle R) : base(R)
+        public Rechthoeken(Rectangle R) : base(R, "Rechthoek")
         {
            
         }
@@ -18,7 +18,7 @@ namespace Grafische_editor_Design_Patters
         {
             MyFigure.Stroke = Brushes.Black;
         }
-        public override void Deslelect()
+        public override void Deselect()
         {
             MyFigure.Stroke = Brushes.Green;
         }

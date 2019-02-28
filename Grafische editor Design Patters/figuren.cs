@@ -17,9 +17,11 @@ namespace Grafische_editor_Design_Patters
         public Shape MyFigure;
         public bool Isingroup;
         public Figuren Parent;
-        public Figuren(Shape S)
+        public string type;
+        public Figuren(Shape S, string T)
         {
-            MyFigure = S;            
+            MyFigure = S;
+            type = T;
         }     
       
         public Shape GetShape()
@@ -30,7 +32,7 @@ namespace Grafische_editor_Design_Patters
         {
             MyFigure.Stroke = Brushes.Black;
         }
-        public virtual void Deslelect()
+        public virtual void Deselect()
         {
             MyFigure.Stroke = Brushes.Green;
         }
