@@ -31,6 +31,7 @@ namespace Grafische_editor_Design_Patters
         private List<Figuren> AllFiguren = new List<Figuren>();
         private MyShape currShape = MyShape.SelectBox;
         private List<Figuren> SelectedFiguren = new List<Figuren>();
+        private int readline = 0;
 
         Border SelectBorder = new Border() //selectborder definition
         {
@@ -48,8 +49,8 @@ namespace Grafische_editor_Design_Patters
         public MainWindow()
         {
             InitializeComponent();
-            MyCanvas.Children.Add(SelectBorder);//add selectborder to canvas
-            MyCanvas.Children.Add(GroupBorder);//add selectborder to canvas
+            ResetCanvas();
+
 
         }
 
@@ -86,6 +87,10 @@ namespace Grafische_editor_Design_Patters
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             Save();
+        }
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            Load();
         }
 
 
@@ -182,29 +187,37 @@ namespace Grafische_editor_Design_Patters
                 Height = 10,
                 Width = 10          
             };
-            Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
-            AllFiguren.Add(ELlipsenFiguren);
+          
             if(end.X >= start.X)
             {
                 newEllipse.SetValue(Canvas.LeftProperty, start.X);
+                newEllipse.SetValue(Canvas.RightProperty, end.X);
+
+
                 newEllipse.Width = end.X - start.X;
             } else
             {
                 newEllipse.SetValue(Canvas.LeftProperty, end.X);
+                newEllipse.SetValue(Canvas.RightProperty, start.X);
                 newEllipse.Width = start.X - end.X;
             }
 
             if (end.Y >= start.Y)
             {
                 newEllipse.SetValue(Canvas.TopProperty, start.Y - 50);
+                newEllipse.SetValue(Canvas.BottomProperty, end.Y - 50);
+
+
                 newEllipse.Height = end.Y - start.Y;
             }
             else
             {
                 newEllipse.SetValue(Canvas.TopProperty, end.Y - 50);
+                newEllipse.SetValue(Canvas.BottomProperty, start.Y - 50);
                 newEllipse.Height = start.Y - end.Y;
             }
-
+            Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
+            AllFiguren.Add(ELlipsenFiguren);
             MyCanvas.Children.Add(newEllipse);
         }
 
@@ -216,31 +229,38 @@ namespace Grafische_editor_Design_Patters
                 Fill = Brushes.Red,
                 StrokeThickness = 4,
             };
-            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
-            AllFiguren.Add(RectangleFiguren);
-
+      
             if (end.X >= start.X)
             {
                 newRectangle.SetValue(Canvas.LeftProperty, start.X);
+                newRectangle.SetValue(Canvas.RightProperty, end.X);
+
+
                 newRectangle.Width = end.X - start.X;
             }
             else
             {
                 newRectangle.SetValue(Canvas.LeftProperty, end.X);
+                newRectangle.SetValue(Canvas.RightProperty, start.X);
                 newRectangle.Width = start.X - end.X;
             }
 
             if (end.Y >= start.Y)
             {
                 newRectangle.SetValue(Canvas.TopProperty, start.Y - 50);
+                newRectangle.SetValue(Canvas.BottomProperty, end.Y - 50);
+
+
                 newRectangle.Height = end.Y - start.Y;
             }
             else
             {
                 newRectangle.SetValue(Canvas.TopProperty, end.Y - 50);
+                newRectangle.SetValue(Canvas.BottomProperty, start.Y - 50);
                 newRectangle.Height = start.Y - end.Y;
             }
-
+            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
+            AllFiguren.Add(RectangleFiguren);
             MyCanvas.Children.Add(newRectangle);
         }
         private void SelectShape()
@@ -271,23 +291,28 @@ namespace Grafische_editor_Design_Patters
         private void SelectInBorder()
         {
             SelectedFiguren.Clear();
+
             foreach (Figuren F in AllFiguren)
             {
                 F.Deselect();
-                F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
-                if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y)
+                //F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
+                if (F.left > Canvas.GetLeft(SelectBorder) && F.right < Canvas.GetRight(SelectBorder) && F.top > Canvas.GetTop(SelectBorder) && F.bot < Canvas.GetBottom(SelectBorder))
                 {
                     SelectedFiguren.Add(F);
                     F.Select();
                 }
             }
         }
+
+
        public void MoveShape()
        {
             double moveX = end.X - start.X;
             double moveY = end.Y - start.Y;
             Canvas.SetLeft(SelectBorder, Canvas.GetLeft(SelectBorder) + moveX);
             Canvas.SetTop(SelectBorder, Canvas.GetTop(SelectBorder) + moveY);
+            Canvas.SetRight(SelectBorder, Canvas.GetRight(SelectBorder) + moveX);
+            Canvas.SetBottom(SelectBorder, Canvas.GetBottom(SelectBorder) + moveY);
 
             foreach (Figuren F in SelectedFiguren)
             {
@@ -299,16 +324,12 @@ namespace Grafische_editor_Design_Patters
 
         public void ResizeShape()
         {
-            double moveX = end.X - start.X;
-            double moveY = end.Y - start.Y;
-
-            if (moveX >= 0 && moveY >= 0)
-            {
                 foreach (Figuren F in SelectedFiguren)
                 {
-                    F.Resize(moveX, moveY);
-                }
-            }
+                    MyCanvas.Children.Remove(F.GetShape());
+                    F.Resize(start, end);
+                    MyCanvas.Children.Add(F.GetShape());
+                }            
         }
         public void Group()
         {
@@ -336,8 +357,7 @@ namespace Grafische_editor_Design_Patters
 
             foreach (Figuren F in AllFiguren)
             {
-                F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
-                if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y)
+                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren[0] != null)
                 {
                     SelectedFiguren[0].InsertGroep(F);
                 }
@@ -370,8 +390,7 @@ namespace Grafische_editor_Design_Patters
 
             foreach (Figuren F in AllFiguren)
             {
-                F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
-                if (F.X > start.X && F.X < end.X && F.Y > start.Y && F.Y < end.Y && SelectedFiguren[0] != null)
+                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren[0] != null)
                 {
                     SelectedFiguren[0].RemoveFromGroep(F);
                 }
@@ -379,57 +398,99 @@ namespace Grafische_editor_Design_Patters
         }
         public void Load()
         {
+            ResetCanvas();
             StreamReader sr = new StreamReader(@"C:/GrafischeEditor/Save.txt");
             List<string> read = new List<string>();
             string line;
             while ((line = sr.ReadLine()) != null)
             {
+               line = line.Replace("-", string.Empty);
                 read.Add(line);
             }
             string[] result = read.ToArray();
-            for (int i = 0; i < result.Length; i++)
+            for (readline = 0; readline < result.Length; readline++)
             {
-                string[] position = result[i + 1].Split(' ');
-                int left = Convert.ToInt16(position[0]);
-                int top = Convert.ToInt16(position[1]);
+                Figuren child = LoadFig(result);        
 
-                switch (result[i])
-                {
-                    case "Rechthoek":
-                        position = result[i + 1].Split(' ');
-                        left = Convert.ToInt16(position[0]);
-                        top = Convert.ToInt16(position[1]);
-                        Rectangle newRectangle = new Rectangle()
-                        {
-                            Stroke = Brushes.Green,
-                            Fill = Brushes.Red,
-                            StrokeThickness = 4,
-                        };                        
-                        Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
-                        RectangleFiguren.UpdateXY(left, top);
-                        AllFiguren.Add(RectangleFiguren);
-                        i =+ 2;
-                        break;
-                    case "Ellipse":
-                        position = result[i + 1].Split(' ');
-                        left = Convert.ToInt16(position[0]);
-                        top = Convert.ToInt16(position[1]);
-                        Ellipse newEllipse = new Ellipse()
-                        {
-                            Stroke = Brushes.Green,
-                            Fill = Brushes.Red,
-                            StrokeThickness = 4,
-                            Height = 10,
-                            Width = 10
-                        };
-                        Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
-                        AllFiguren.Add(ELlipsenFiguren);
-                        ELlipsenFiguren.UpdateXY(left, top);
-                        AllFiguren.Add(ELlipsenFiguren);
-                        i = +2;
-                        break;
-                }
             }
+            sr.Close();
+        }
+
+        public Figuren LoadFig(string[] result)
+        {
+            string[] position, Gsize;
+            int left, top, right, bot, numChildren;
+            switch (result[readline])
+                  {
+                case "Rechthoek":
+                    Gsize = result[readline - 1].Split(':');
+                    numChildren = Convert.ToInt16(Gsize[1]);
+                    position = result[readline + 1].Split(' ');
+                    left = Convert.ToInt16(position[0]);
+                    top = Convert.ToInt16(position[1]);
+                    right = Convert.ToInt16(position[2]);
+                    bot = Convert.ToInt16(position[3]);
+                    Rectangle newRectangle = new Rectangle()
+                    {
+                        Stroke = Brushes.Green,
+                        Fill = Brushes.Red,
+                        StrokeThickness = 4,
+                        Width = right - left,
+                        Height = bot - top,
+                    };
+                    MyCanvas.Children.Add(newRectangle);
+                    Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
+                    RectangleFiguren.SetPosition(top, left, bot, right);
+                    for (int c = 0; c < numChildren; c++)
+                    {
+                        readline += 3;
+                        Figuren child = LoadFig(result);
+                        int childgroupsize = 0;
+                        if (child != null)
+                        {
+                            RectangleFiguren.InsertGroep(child);
+                            childgroupsize = child.GetGroupSize();
+                        }
+                    }
+                    AllFiguren.Add(RectangleFiguren);
+                    return RectangleFiguren;
+                    
+                    
+                case "Ellipse":
+                    Gsize = result[readline - 1].Split(':');
+                    numChildren = Convert.ToInt16(Gsize[1]);
+                    position = result[readline + 1].Split(' ');
+                    left = Convert.ToInt16(position[0]);
+                    top = Convert.ToInt16(position[1]);
+                    right = Convert.ToInt16(position[2]);
+                    bot = Convert.ToInt16(position[3]);
+
+                    Ellipse newEllipse = new Ellipse()
+                    {
+                        Stroke = Brushes.Green,
+                        Fill = Brushes.Red,
+                        StrokeThickness = 4,
+                        Width = right - left,
+                        Height = bot - top,
+                    };
+                    MyCanvas.Children.Add(newEllipse);
+                    Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
+                    ELlipsenFiguren.SetPosition(top, left, bot, right);
+                    for (int c = 0; c < numChildren; c++)
+                    {
+                        readline += 3;
+                        Figuren child = LoadFig(result);
+                        int childgroupsize = 0;
+                        if (child != null)
+                        {
+                            ELlipsenFiguren.InsertGroep(child);
+                            childgroupsize = child.GetGroupSize();
+                        }
+                    }
+                    AllFiguren.Add(ELlipsenFiguren);
+                    return ELlipsenFiguren;
+            }        
+            return null;
         }
 
         public void Save()
@@ -471,6 +532,14 @@ namespace Grafische_editor_Design_Patters
                 if (fig.GetGroep().Count != 0)
                 SaveChild(fig, sw,Reclvl);
             }
+        }
+        private void ResetCanvas()
+        {
+            MyCanvas.Children.Clear();
+            AllFiguren.Clear();       
+            MyCanvas.Children.Add(SelectBorder);//add selectborder to canvas
+            MyCanvas.Children.Add(GroupBorder);//add selectborder to canvas
+            readline = 0;
         }
 
     }

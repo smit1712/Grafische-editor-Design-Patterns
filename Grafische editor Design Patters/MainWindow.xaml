@@ -17,6 +17,7 @@
                 <RadioButton Name="GroupButton" BorderBrush="#FF969696" Content="GroupIn" Height="50" Width="80" GroupName="ShapeGroup" Click="GroupButton_Click" />
                 <RadioButton Name="DeGroupButton" BorderBrush="#FF969696" Content="DeGroup" Height="50" Width="80" GroupName="ShapeGroup" Click="DeGroupButton_Click" />
                 <RadioButton Name="SaveButton" BorderBrush="#FF969696" Content="Save" Height="50" Width="80" GroupName="ShapeGroup" Click="SaveButton_Click" />
+                <RadioButton Name="LoadButton" BorderBrush="#FF969696" Content="load" Height="50" Width="80" GroupName="ShapeGroup" Click="LoadButton_Click" />
 
             </ToolBar>
 

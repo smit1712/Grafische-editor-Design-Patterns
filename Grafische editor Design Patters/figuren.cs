@@ -13,7 +13,7 @@ namespace Grafische_editor_Design_Patters
     public class Figuren
     {
         private List<Figuren> Groep = new List<Figuren>();
-        public double X, Y;
+        public double top, left, bot,right;
         public Shape MyFigure;
         public bool Isingroup;
         public Figuren Parent;
@@ -22,8 +22,19 @@ namespace Grafische_editor_Design_Patters
         {
             MyFigure = S;
             type = T;
+            SetPosition(Canvas.GetTop(S), Canvas.GetLeft(S), Canvas.GetBottom(S), Canvas.GetRight(S));
         }     
-      
+        public void SetPosition(double T, double L, double B, double R)
+        {
+            top = T;
+            left = L;
+            bot = B;
+            right = R;
+            Canvas.SetLeft(MyFigure, left);
+            Canvas.SetTop(MyFigure, top);
+            Canvas.SetRight(MyFigure, right);
+            Canvas.SetBottom(MyFigure, bot);
+        }
         public Shape GetShape()
         {
             return MyFigure;
@@ -39,6 +50,20 @@ namespace Grafische_editor_Design_Patters
         public List<Figuren> GetGroep()
         {
             return Groep;
+        }
+        public int GetGroupSize()
+        {
+            int size = 0;
+            if (Groep.Count() == 0)
+                return -1;
+            foreach (Figuren F in Groep)
+            {
+                
+                size += F.GetGroupSize();
+                if (size == -1)
+                    size = 1;
+            }
+            return size;
         }
         public void InsertGroep(Figuren F)
         {
@@ -66,19 +91,43 @@ namespace Grafische_editor_Design_Patters
                 F.Isingroup = false;
             }
         }
-        public void UpdateXY(double x, double y)
-        {            
-            X = x;
-            Y = y + 50;
-            Canvas.SetLeft(MyFigure, x);
-            Canvas.SetTop(MyFigure, y);            
+        public void ControlPosition()
+        {
+            left = Canvas.GetLeft(MyFigure);
+            top = Canvas.GetTop(MyFigure);
+            right = Canvas.GetRight(MyFigure);
+            bot = Canvas.GetBottom(MyFigure);
+
+            double temp;
+            if(left > right)
+            {
+                temp = right;
+                right = left;
+                left = temp;
+            }
+            if(top > bot)
+            {
+                temp = top;
+                top = bot;
+                bot = temp;
+            }
+            Canvas.SetLeft(MyFigure, left);
+            Canvas.SetTop(MyFigure, top);
+            Canvas.SetRight(MyFigure, right);
+            Canvas.SetBottom(MyFigure, bot);
+
         }
         public void Move(double x, double y)
-        {           
-            X = x;
-            Y = y + 50;
+        {
+            left += x;
+            top += y;
+            right += x;
+            bot += y;
             Canvas.SetLeft(MyFigure, Canvas.GetLeft(MyFigure) + x);
             Canvas.SetTop(MyFigure, Canvas.GetTop(MyFigure) + y);
+            Canvas.SetRight(MyFigure, Canvas.GetRight(MyFigure) + x);
+            Canvas.SetBottom(MyFigure, Canvas.GetBottom(MyFigure) + y);
+            ControlPosition();
             foreach (Figuren F in Groep)
             {
 
@@ -86,13 +135,22 @@ namespace Grafische_editor_Design_Patters
             }
             
         }
-        public void Resize(double w, double h)
-        {     
-            MyFigure.Height = h;
-            MyFigure.Width = w;
+        public void Resize(Point start, Point end)
+        {
+            double sizex = end.X - start.X;
+            double sizey = end.Y - start.Y;
+      
+            bot = Canvas.GetTop(MyFigure) + sizey;
+            right = Canvas.GetLeft(MyFigure) + sizex;
+            MyFigure.Height = sizey;
+            MyFigure.Width = sizex;
+            SetPosition(Canvas.GetTop(MyFigure), Canvas.GetLeft(MyFigure), Canvas.GetTop(MyFigure) + sizey, Canvas.GetLeft(MyFigure) + sizex);
+
+            ControlPosition();
+
             foreach (Figuren F in Groep)
             {
-                F.Resize(w, h);
+                F.Resize(start, end);
             }
         }
     }
