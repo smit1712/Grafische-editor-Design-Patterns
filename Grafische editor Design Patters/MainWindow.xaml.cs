@@ -32,6 +32,7 @@ namespace Grafische_editor_Design_Patters
         private MyShape currShape = MyShape.SelectBox;
         private List<Figuren> SelectedFiguren = new List<Figuren>();
         private int readline = 0;
+        private Invoker invoker = new Invoker();
 
         Border SelectBorder = new Border() //selectborder definition
         {
@@ -39,6 +40,7 @@ namespace Grafische_editor_Design_Patters
             BorderThickness = new Thickness(1),
             Padding = new Thickness(5),
         };
+
         Border GroupBorder = new Border() //Group definition
         {
             BorderBrush = Brushes.Red,
@@ -50,8 +52,6 @@ namespace Grafische_editor_Design_Patters
         {
             InitializeComponent();
             ResetCanvas();
-
-
         }
 
         private void EllipseButton_Click(object sender, RoutedEventArgs e)
@@ -121,29 +121,30 @@ namespace Grafische_editor_Design_Patters
             switch (currShape)
             {               
                 case MyShape.Ellipse:
-                    DrawEllipse();
+                    invoker.ellipse(start,end,MyCanvas,AllFiguren);
                     break;
                 case MyShape.Rectangle:
-                    DrawRectangle();
+                    invoker.rectangle(start, end, MyCanvas, AllFiguren);
                     break;
                 case MyShape.SelectBox:
-                    SelectShape();
+                    invoker.SelectShape(start, end, MyCanvas, AllFiguren,SelectBorder);
                     break;
                 case MyShape.Move:
-                    MoveShape();
+                    invoker.moveShape(start, end, MyCanvas, AllFiguren);
                     break;
                 case MyShape.Resize:
-                    ResizeShape();
+                    invoker.ResizeShape(start, end, MyCanvas);
                     break;
                 case MyShape.Group:
-                    Group();
+                    invoker.groupIn(start, end, MyCanvas, AllFiguren, GroupBorder);
                     break;
                 case MyShape.DeGroup:
-                    DeGroup();
+                    invoker.groupOut(start, end, MyCanvas, AllFiguren, GroupBorder);
                     break;
                 default:
                     return;
             }
+            invoker.ExecuteCommands();
         }
 
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)
@@ -159,7 +160,6 @@ namespace Grafische_editor_Design_Patters
                     Canvas.SetTop(SelectBorder, start.Y);
                     Canvas.SetRight(SelectBorder, end.X);
                     Canvas.SetBottom(SelectBorder, end.Y);
-                    SelectShape();
                 }
                 if (currShape == MyShape.Group || currShape == MyShape.DeGroup)
                 {
@@ -169,233 +169,15 @@ namespace Grafische_editor_Design_Patters
                     Canvas.SetTop(GroupBorder, start.Y);
                     Canvas.SetRight(GroupBorder, end.X);
                     Canvas.SetBottom(GroupBorder, end.Y);
-                    if (currShape == MyShape.Group)
-                        Group();
-                    else
-                        DeGroup();
+                    //if (currShape == MyShape.Group)
+                    //    //Group();
+                    //else
+                    //    DeGroup();
                 }
             }
 
         }
-        private void DrawEllipse()
-        {
-            Ellipse newEllipse = new Ellipse()
-            {
-                Stroke = Brushes.Green,
-                Fill = Brushes.Red,
-                StrokeThickness = 4,
-                Height = 10,
-                Width = 10          
-            };
-          
-            if(end.X >= start.X)
-            {
-                newEllipse.SetValue(Canvas.LeftProperty, start.X);
-                newEllipse.SetValue(Canvas.RightProperty, end.X);
 
-
-                newEllipse.Width = end.X - start.X;
-            } else
-            {
-                newEllipse.SetValue(Canvas.LeftProperty, end.X);
-                newEllipse.SetValue(Canvas.RightProperty, start.X);
-                newEllipse.Width = start.X - end.X;
-            }
-
-            if (end.Y >= start.Y)
-            {
-                newEllipse.SetValue(Canvas.TopProperty, start.Y - 50);
-                newEllipse.SetValue(Canvas.BottomProperty, end.Y - 50);
-
-
-                newEllipse.Height = end.Y - start.Y;
-            }
-            else
-            {
-                newEllipse.SetValue(Canvas.TopProperty, end.Y - 50);
-                newEllipse.SetValue(Canvas.BottomProperty, start.Y - 50);
-                newEllipse.Height = start.Y - end.Y;
-            }
-            Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse);
-            AllFiguren.Add(ELlipsenFiguren);
-            MyCanvas.Children.Add(newEllipse);
-        }
-
-        private void DrawRectangle()
-        {
-            Rectangle newRectangle = new Rectangle()
-            {
-                Stroke = Brushes.Green,
-                Fill = Brushes.Red,
-                StrokeThickness = 4,
-            };
-      
-            if (end.X >= start.X)
-            {
-                newRectangle.SetValue(Canvas.LeftProperty, start.X);
-                newRectangle.SetValue(Canvas.RightProperty, end.X);
-
-
-                newRectangle.Width = end.X - start.X;
-            }
-            else
-            {
-                newRectangle.SetValue(Canvas.LeftProperty, end.X);
-                newRectangle.SetValue(Canvas.RightProperty, start.X);
-                newRectangle.Width = start.X - end.X;
-            }
-
-            if (end.Y >= start.Y)
-            {
-                newRectangle.SetValue(Canvas.TopProperty, start.Y - 50);
-                newRectangle.SetValue(Canvas.BottomProperty, end.Y - 50);
-
-
-                newRectangle.Height = end.Y - start.Y;
-            }
-            else
-            {
-                newRectangle.SetValue(Canvas.TopProperty, end.Y - 50);
-                newRectangle.SetValue(Canvas.BottomProperty, start.Y - 50);
-                newRectangle.Height = start.Y - end.Y;
-            }
-            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
-            AllFiguren.Add(RectangleFiguren);
-            MyCanvas.Children.Add(newRectangle);
-        }
-        private void SelectShape()
-        {
-            if (end.X >= start.X)
-            {
-                SelectBorder.SetValue(Canvas.LeftProperty, start.X);
-                SelectBorder.Width = end.X - start.X;
-            }
-            else
-            {
-                SelectBorder.SetValue(Canvas.LeftProperty, end.X);
-                SelectBorder.Width = start.X - end.X;
-            }
-
-            if (end.Y >= start.Y)
-            {
-                SelectBorder.SetValue(Canvas.TopProperty, start.Y - 50);
-                SelectBorder.Height = end.Y - start.Y;
-            }
-            else
-            {
-                SelectBorder.SetValue(Canvas.TopProperty, end.Y - 50);
-                SelectBorder.Height = start.Y - end.Y;
-            }
-            SelectInBorder();
-        }
-        private void SelectInBorder()
-        {
-            SelectedFiguren.Clear();
-
-            foreach (Figuren F in AllFiguren)
-            {
-                F.Deselect();
-                //F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
-                if (F.left > Canvas.GetLeft(SelectBorder) && F.right < Canvas.GetRight(SelectBorder) && F.top > Canvas.GetTop(SelectBorder) && F.bot < Canvas.GetBottom(SelectBorder))
-                {
-                    SelectedFiguren.Add(F);
-                    F.Select();
-                }
-            }
-        }
-
-
-       public void MoveShape()
-       {
-            double moveX = end.X - start.X;
-            double moveY = end.Y - start.Y;
-            Canvas.SetLeft(SelectBorder, Canvas.GetLeft(SelectBorder) + moveX);
-            Canvas.SetTop(SelectBorder, Canvas.GetTop(SelectBorder) + moveY);
-            Canvas.SetRight(SelectBorder, Canvas.GetRight(SelectBorder) + moveX);
-            Canvas.SetBottom(SelectBorder, Canvas.GetBottom(SelectBorder) + moveY);
-
-            foreach (Figuren F in SelectedFiguren)
-            {
-                if(!SelectedFiguren.Contains(F.Parent))
-                F.Move(moveX, moveY);
-
-            }
-        }
-
-        public void ResizeShape()
-        {
-                foreach (Figuren F in SelectedFiguren)
-                {
-                    MyCanvas.Children.Remove(F.GetShape());
-                    F.Resize(start, end);
-                    MyCanvas.Children.Add(F.GetShape());
-                }            
-        }
-        public void Group()
-        {
-            if (end.X >= start.X)
-            {
-                GroupBorder.SetValue(Canvas.LeftProperty, start.X);
-                GroupBorder.Width = end.X - start.X;
-            }
-            else
-            {
-                GroupBorder.SetValue(Canvas.LeftProperty, end.X);
-                GroupBorder.Width = start.X - end.X;
-            }
-
-            if (end.Y >= start.Y)
-            {
-                GroupBorder.SetValue(Canvas.TopProperty, start.Y - 50);
-                GroupBorder.Height = end.Y - start.Y;
-            }
-            else
-            {
-                GroupBorder.SetValue(Canvas.TopProperty, end.Y - 50);
-                GroupBorder.Height = start.Y - end.Y;
-            }
-
-            foreach (Figuren F in AllFiguren)
-            {
-                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren[0] != null)
-                {
-                    SelectedFiguren[0].InsertGroep(F);
-                }
-            }
-
-        }
-        public void DeGroup()
-        {
-            if (end.X >= start.X)
-            {
-                GroupBorder.SetValue(Canvas.LeftProperty, start.X);
-                GroupBorder.Width = end.X - start.X;
-            }
-            else
-            {
-                GroupBorder.SetValue(Canvas.LeftProperty, end.X);
-                GroupBorder.Width = start.X - end.X;
-            }
-
-            if (end.Y >= start.Y)
-            {
-                GroupBorder.SetValue(Canvas.TopProperty, start.Y - 50);
-                GroupBorder.Height = end.Y - start.Y;
-            }
-            else
-            {
-                GroupBorder.SetValue(Canvas.TopProperty, end.Y - 50);
-                GroupBorder.Height = start.Y - end.Y;
-            }
-
-            foreach (Figuren F in AllFiguren)
-            {
-                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren[0] != null)
-                {
-                    SelectedFiguren[0].RemoveFromGroep(F);
-                }
-            }
-        }
         public void Load()
         {
             ResetCanvas();
