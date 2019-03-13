@@ -92,11 +92,21 @@ namespace Grafische_editor_Design_Patters
         {
             Load();
         }
+        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        {
+            invoker.Undo(MyCanvas,AllFiguren);
+        }
+        private void RedoButton_Click(object sender, RoutedEventArgs e)
+        {
+            invoker.Redo();
+        }
+
 
 
         private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             start = e.GetPosition(this);
+            start.Y -= 50;
             if (currShape == MyShape.SelectBox)
                 SelectBorder.Visibility = Visibility.Visible;
             else
@@ -152,6 +162,7 @@ namespace Grafische_editor_Design_Patters
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 end = e.GetPosition(this);
+                end.Y -= 50;
                 if (currShape == MyShape.SelectBox)
                 {
                     double moveX = end.X - start.X;
@@ -160,6 +171,11 @@ namespace Grafische_editor_Design_Patters
                     Canvas.SetTop(SelectBorder, start.Y);
                     Canvas.SetRight(SelectBorder, end.X);
                     Canvas.SetBottom(SelectBorder, end.Y);
+                    if (moveX > 0 && moveY > 0)
+                    {
+                        SelectBorder.Width = moveX;
+                        SelectBorder.Height = moveY;
+                    }
                 }
                 if (currShape == MyShape.Group || currShape == MyShape.DeGroup)
                 {

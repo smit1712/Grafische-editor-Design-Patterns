@@ -18,6 +18,8 @@
                 <RadioButton Name="DeGroupButton" BorderBrush="#FF969696" Content="DeGroup" Height="50" Width="80" GroupName="ShapeGroup" Click="DeGroupButton_Click" />
                 <RadioButton Name="SaveButton" BorderBrush="#FF969696" Content="Save" Height="50" Width="80" GroupName="ShapeGroup" Click="SaveButton_Click" />
                 <RadioButton Name="LoadButton" BorderBrush="#FF969696" Content="load" Height="50" Width="80" GroupName="ShapeGroup" Click="LoadButton_Click" />
+                <RadioButton Name="UndoButton" BorderBrush="#FF969696" Content="Undo" Height="50" Width="80" GroupName="ShapeGroup" Click="UndoButton_Click" />
+                <RadioButton Name="RedoButton" BorderBrush="#FF969696" Content="Redo" Height="50" Width="80" GroupName="ShapeGroup" Click="RedoButton_Click" />
 
             </ToolBar>
 
