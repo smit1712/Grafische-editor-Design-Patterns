@@ -61,10 +61,16 @@
     <Compile Include="groupIn.cs" />
     <Compile Include="groupOut.cs" />
     <Compile Include="Invoker.cs" />
+    <Compile Include="Load.cs" />
     <Compile Include="MoveShape.cs" />
     <Compile Include="Rechthoeken.cs" />
     <Compile Include="ResizeShape.cs" />
+    <Compile Include="Save.cs" />
     <Compile Include="SelectShape.cs" />
+    <Compile Include="IShapeVisitor.cs" />
+    <Compile Include="IVisitor.cs" />
+    <Compile Include="VisitExecutor.cs" />
+    <Compile Include="VisitorCollector.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

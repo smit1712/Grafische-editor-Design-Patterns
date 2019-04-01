@@ -14,7 +14,7 @@ namespace Grafische_editor_Design_Patters
     {
         private List<Figuren> Groep = new List<Figuren>();
         public double top, left, bot,right;
-        public Shape MyFigure;
+        protected Shape MyFigure;
         public bool Isingroup;
         public Figuren Parent;
         public string type;

@@ -15,7 +15,6 @@ namespace Grafische_editor_Design_Patters
     class Invoker
     {
         private List<Command> commands = new List<Command>();
-        private List<Figuren> SF = new List<Figuren>();
         private int CommandCounter = 0;
 
    
@@ -31,11 +30,6 @@ namespace Grafische_editor_Design_Patters
                 commands.Add(DE);
             }
             CommandCounter++;
-
-
-
-
-
         }
 
         public void rectangle(Point s, Point e, Canvas c, List<Figuren> AF)
@@ -50,15 +44,12 @@ namespace Grafische_editor_Design_Patters
                 commands.Add(DE);
             }
             CommandCounter++;
-
-
-
         }
 
-        public void moveShape(Point s, Point e, Canvas c, List<Figuren> AF)
+        public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,ref List<Figuren> SF , Border SB)
         {
            
-            MoveShape DE = new MoveShape(s, e, c, AF,SF);
+            SelectShape DE = new SelectShape(s, e, c, AF,ref SF, SB);
             if (CommandCounter <= commands.Count())
             {
                 commands.Insert(CommandCounter, DE);
@@ -69,41 +60,9 @@ namespace Grafische_editor_Design_Patters
             }
             CommandCounter++;
 
-        }
+        }        
 
-        public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF, Border SB)
-        {
-           
-            SelectShape DE = new SelectShape(s, e, c, AF, SF, SB);
-            if (CommandCounter <= commands.Count())
-            {
-                commands.Insert(CommandCounter, DE);
-            }
-            else
-            {
-                commands.Add(DE);
-            }
-            CommandCounter++;
-
-        }
-
-        public void ResizeShape(Point s, Point e, Canvas c)
-        {
-           
-            ResizeShape DE = new ResizeShape(s, e, c, SF);
-            if (CommandCounter <= commands.Count())
-            {
-                commands.Insert(CommandCounter, DE);
-            }
-            else
-            {
-                commands.Add(DE);
-            }
-            CommandCounter++;
-
-        }
-
-        public void groupIn(Point s, Point e, Canvas c, List<Figuren> AF, Border GB)
+        public void groupIn(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
            
             groupIn DE = new groupIn(s, e, c, SF, AF, GB);
@@ -119,7 +78,7 @@ namespace Grafische_editor_Design_Patters
 
         }
 
-        public void groupOut(Point s, Point e, Canvas c, List<Figuren> AF, Border GB)
+        public void groupOut(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
             
             groupOut DE = new groupOut(s, e, c, SF, AF, GB);
@@ -132,18 +91,11 @@ namespace Grafische_editor_Design_Patters
                 commands.Add(DE);
             }
             CommandCounter++;
-
         }
 
         public void ExecuteCommands()
-        {
-            //int commandstodo = commands.Count() - CommandCounter;
-
-            
-                    commands[CommandCounter -1].Execute();
-                          
-            
-            //commands.Clear();
+        {        
+              commands[CommandCounter -1].Execute();
         }
         public void Undo(Canvas C, List<Figuren> AF)
         {
@@ -164,10 +116,5 @@ namespace Grafische_editor_Design_Patters
                 commands[CommandCounter - 1].Execute();
             }
         }
-
-
-
     }
-
-
 }

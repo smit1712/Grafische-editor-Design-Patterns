@@ -18,7 +18,7 @@ namespace Grafische_editor_Design_Patters
         List<Figuren> AllFiguren;
         Point start, end;
         Border SelectBorder;
-        public SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,List<Figuren> SF, Border SB)
+        public SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,ref List<Figuren> SF, Border SB)
         {
             SelectedFiguren = SF;
             AllFiguren = AF;
@@ -34,7 +34,6 @@ namespace Grafische_editor_Design_Patters
             foreach (Figuren F in AllFiguren)
             {
                 F.Deselect();
-                //F.UpdateXY(Canvas.GetLeft(F.GetShape()), Canvas.GetTop(F.GetShape()));
                 if (F.left > Canvas.GetLeft(SelectBorder) && F.right < Canvas.GetRight(SelectBorder) && F.top > Canvas.GetTop(SelectBorder) && F.bot < Canvas.GetBottom(SelectBorder))
                 {
                     SelectedFiguren.Add(F);

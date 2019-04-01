@@ -11,36 +11,11 @@ using System.Windows.Media.Imaging;
 
 namespace Grafische_editor_Design_Patters
 {
-    class MoveShape : Command
+    class MoveShape : IShapeVisitor
     {
-        Point start, end;
-        Canvas MyCanvas;
-        List<Figuren> Allfiguren;
-        private List<Figuren> SelectedFiguren;
-
-
-        public MoveShape(Point s, Point e, Canvas c, List<Figuren> AF, List<Figuren> SF)
+        public void Accept(IVisitor V)
         {
-            start = s;
-            end = e;
-            MyCanvas = c;
-            Allfiguren = AF;
-            SelectedFiguren = SF;
-
-        }
-
-        public void Execute()
-        {
-            double moveX = end.X - start.X;
-            double moveY = end.Y - start.Y;
-            
-
-            foreach (Figuren F in SelectedFiguren)
-            {
-                if (!SelectedFiguren.Contains(F.Parent))
-                    F.Move(moveX, moveY);
-
-            }
+            V.Visit(this);
         }
     }
 }
