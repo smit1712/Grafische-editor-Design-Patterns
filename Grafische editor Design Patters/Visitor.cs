@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Grafische_editor_Design_Patters
 {
@@ -24,7 +18,7 @@ namespace Grafische_editor_Design_Patters
         private int readline = 0;
         private Canvas MyCanvas;
         private Invoker commandinvoker = new Invoker();
-        public Visitor(ref List<Figuren> AF,ref List<Figuren> SF, Point S, Point E, ref Canvas MyC)
+        public Visitor(ref List<Figuren> AF, ref List<Figuren> SF, Point S, Point E, ref Canvas MyC)
         {
             AllFiguren = AF;
             SelectedFiguren = SF;
@@ -38,24 +32,24 @@ namespace Grafische_editor_Design_Patters
             end = E;
         }
         public void Visit(Save S)
-        {           
-                StreamWriter sw = new StreamWriter(@"C:/GrafischeEditor/Save.txt");
-                int RecusionLevel = 1;
-                foreach (Figuren F in AllFiguren)
+        {
+            StreamWriter sw = new StreamWriter(@"C:/GrafischeEditor/Save.txt");
+            int RecusionLevel = 1;
+            foreach (Figuren F in AllFiguren)
+            {
+                if (F.Isingroup == false)
                 {
-                    if (F.Isingroup == false)
+                    sw.WriteLine("Groep:" + F.GetGroep().Count().ToString());
+                    foreach (Ornament OR in F.GetOrnament())
                     {
-                        sw.WriteLine("Groep:" + F.GetGroep().Count().ToString());
-                        foreach(Ornament OR in F.GetOrnament())
-                        {
                         sw.WriteLine("ornament " + OR.GetLocation() + " " + OR.GetText() + " ");
-                        }
-                        sw.WriteLine(F.type);
-                        sw.WriteLine(Canvas.GetLeft(F.GetShape()) + " " + Canvas.GetTop(F.GetShape()) + " " + Canvas.GetRight(F.GetShape()) + " " + Canvas.GetBottom(F.GetShape()));
-                        SaveChild(F, sw, RecusionLevel);
                     }
+                    sw.WriteLine(F.type);
+                    sw.WriteLine(Canvas.GetLeft(F.GetShape()) + " " + Canvas.GetTop(F.GetShape()) + " " + Canvas.GetRight(F.GetShape()) + " " + Canvas.GetBottom(F.GetShape()));
+                    SaveChild(F, sw, RecusionLevel);
                 }
-                sw.Close();
+            }
+            sw.Close();
         }
         private void SaveChild(Figuren F, StreamWriter sw, int Reclvl)
         {
@@ -65,7 +59,7 @@ namespace Grafische_editor_Design_Patters
                 {
                     sw.Write("-");
                 }
-                sw.WriteLine("Groep: " + fig.GetGroep().Count().ToString() + " ");
+                sw.WriteLine("Groep:" + fig.GetGroep().Count().ToString() + " ");
                 for (int i = 0; i < Reclvl; i++)
                 {
                     sw.Write("-");
@@ -86,18 +80,18 @@ namespace Grafische_editor_Design_Patters
                 sw.WriteLine(Canvas.GetLeft(fig.GetShape()) + " " + Canvas.GetTop(fig.GetShape()) + " " + Canvas.GetRight(fig.GetShape()) + " " + Canvas.GetBottom(fig.GetShape()));
                 if (fig.GetGroep().Count != 0)
                     Reclvl++;
-                    SaveChild(fig, sw, Reclvl);
+                SaveChild(fig, sw, Reclvl);
             }
         }
 
         public void Visit(ResizeShape R)
-        {           
+        {
             foreach (Figuren F in SelectedFiguren)
             {
                 F.Resize(start, end);
-            }            
+            }
         }
-               
+
 
         public void Visit(MoveShape M)
         {
@@ -107,10 +101,9 @@ namespace Grafische_editor_Design_Patters
             {
                 if (!SelectedFiguren.Contains(F.Parent))
                     F.Move(moveX, moveY);
-
             }
         }
-               
+
         public void Visit(Load L)
         {
             StreamReader sr = new StreamReader(@"C:/GrafischeEditor/Save.txt");
@@ -125,55 +118,78 @@ namespace Grafische_editor_Design_Patters
             for (readline = 0; readline < result.Length; readline++)
             {
                 Figuren child = LoadFig(result);
-
             }
             sr.Close();
         }
 
         private Figuren LoadFig(string[] result)
         {
-            string[] position, Gsize;
-            int left, top, right, bot, numChildren;
-            int backtrack = 2;
+            int[] position = new int[4];
+            Regex regex = new Regex("");
+            MatchCollection matches;
+            int groupsize = 0;
+            List<string[]> ornamentsloaded = new List<string[]>();
+            List<Figuren> templist = new List<Figuren>();
             while (readline < result.Count())
             {
+                regex = new Regex("Groep:(\\d*)");
+                matches = regex.Matches(result[readline]);
+                foreach (Match M in matches)
+                {
+                    groupsize = Convert.ToInt16(M.Groups[1].ToString());
+                    readline++;
+                }
+                while (result[readline].Contains("ornament"))
+                {
+                    regex = new Regex("ornament\\s(\\w*)\\s(.*)");
+                    matches = regex.Matches(result[readline]);
+                    foreach (Match M in matches)
+                    {
+
+                        string loc = M.Groups[1].ToString();
+                        string or = M.Groups[2].ToString();
+                        string[] ornament = { loc, or };
+                        ornamentsloaded.Add(ornament);
+                        readline++;
+                    }
+                }
+                regex = new Regex("(\\d+)\\s(\\d+)\\s(\\d+)\\s(\\d+)");
+
+                if (result.Count() > readline + 1 && regex.IsMatch(result[readline + 1]))
+                {
+                    matches = regex.Matches(result[readline + 1]);
+                    position[0] = Convert.ToInt16(matches[0].Groups[1].Value);
+                    position[1] = Convert.ToInt16(matches[0].Groups[2].Value);
+                    position[2] = Convert.ToInt16(matches[0].Groups[3].Value);
+                    position[3] = Convert.ToInt16(matches[0].Groups[4].Value);
+                }
+
                 switch (result[readline])
                 {
-                    case "Rechthoek":
-                        Gsize = result[readline - backtrack].Split(':');
-                        while (Gsize.Count() == 1)
-                        {
-                            Gsize = result[readline - backtrack].Split(':');
-                            backtrack++;
+                    case "Rechthoek":                      
 
-                        }
-                        numChildren = Convert.ToInt16(Gsize[1]);
-                        position = result[readline + 1].Split(' ');
-                        left = Convert.ToInt16(position[0]);
-                        top = Convert.ToInt16(position[1]);
-                        right = Convert.ToInt16(position[2]);
-                        bot = Convert.ToInt16(position[3]);
                         Rectangle newRectangle = new Rectangle()
                         {
                             Stroke = Brushes.Green,
                             Fill = Brushes.Red,
                             StrokeThickness = 4,
-                            Width = right - left,
-                            Height = bot - top,
+                            Width = position[2] - position[0],
+                            Height = position[3] - position[1],
                         };
                         MyCanvas.Children.Add(newRectangle);
                         Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);
-                        RectangleFiguren.SetPosition(top, left, bot, right);
-
-                        List<Figuren> figlist = new List<Figuren>();
-                        figlist.Add(RectangleFiguren);
-                        string[] ornamenttext = result[readline - 1].Split(' ');
-                        commandinvoker.AddOrnament(ref figlist, ornamenttext[2], ornamenttext[1]);
+                        RectangleFiguren.SetPosition(position[0], position[1], position[2], position[3]);
+                        templist = new List<Figuren>();
+                        templist.Add(RectangleFiguren);
+                        foreach (string[] str in ornamentsloaded)
+                        {
+                            commandinvoker.AddOrnament(ref templist, str[1], str[0]);
+                        }
                         commandinvoker.ExecuteCommands();
 
-                        for (int c = 0; c < numChildren; c++)
+                        for (int c = 0; c < groupsize; c++)
                         {
-                            readline += 4;
+                            readline += 2;
                             Figuren child = LoadFig(result);
                             int childgroupsize = 0;
                             if (child != null)
@@ -184,47 +200,47 @@ namespace Grafische_editor_Design_Patters
                         }
                         AllFiguren.Add(RectangleFiguren);
                         return RectangleFiguren;
-
-
                     case "Ellipse":
-                        Gsize = result[readline - 1].Split(':');
-                        numChildren = Convert.ToInt16(Gsize[1]);
-                        position = result[readline + 1].Split(' ');
-                        left = Convert.ToInt16(position[0]);
-                        top = Convert.ToInt16(position[1]);
-                        right = Convert.ToInt16(position[2]);
-                        bot = Convert.ToInt16(position[3]);
-
-                        Ellipse newEllipse = new Ellipse()
+                    
+                        Ellipse NewElipse = new Ellipse()
                         {
                             Stroke = Brushes.Green,
                             Fill = Brushes.Red,
                             StrokeThickness = 4,
-                            Width = right - left,
-                            Height = bot - top,
+                            Width = position[2] - position[0],
+                            Height = position[3] - position[1],
                         };
-                        MyCanvas.Children.Add(newEllipse);
-                        Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse, MyCanvas);
-                        ELlipsenFiguren.SetPosition(top, left, bot, right);
-                        for (int c = 0; c < numChildren; c++)
+                        MyCanvas.Children.Add(NewElipse);
+                        Ellipsen ElipseFiguren = new Ellipsen(NewElipse, MyCanvas);
+                        ElipseFiguren.SetPosition(position[0], position[1], position[2], position[3]);
+                        templist = new List<Figuren>();
+                        templist.Add(ElipseFiguren);
+                        foreach (string[] str in ornamentsloaded)
                         {
-                            readline += 3;
+                            commandinvoker.AddOrnament(ref templist, str[1], str[0]);
+                        }
+                        commandinvoker.ExecuteCommands();
+
+                        for (int c = 0; c < groupsize; c++)
+                        {
+                            readline += 2;
                             Figuren child = LoadFig(result);
                             int childgroupsize = 0;
                             if (child != null)
                             {
-                                ELlipsenFiguren.Add(child);
+                                ElipseFiguren.Add(child);
                                 childgroupsize = child.GetGroupSize();
                             }
                         }
-                        AllFiguren.Add(ELlipsenFiguren);
-                        return ELlipsenFiguren;
+                        AllFiguren.Add(ElipseFiguren);
+                        return ElipseFiguren;
+                        
+                    default:
+                        readline++;
+                        break;
                 }
-                readline++;
             }
             return null;
         }
-
-        
     }
 }

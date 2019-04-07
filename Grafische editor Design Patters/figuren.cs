@@ -25,11 +25,12 @@ namespace Grafische_editor_Design_Patters
             MyFigure = S;
             type = T;
             Mycanvas = C;
-            SetPosition(Canvas.GetTop(S), Canvas.GetLeft(S), Canvas.GetBottom(S), Canvas.GetRight(S));
+            SetPosition( Canvas.GetLeft(S), Canvas.GetTop(S), Canvas.GetRight(S), Canvas.GetBottom(S));
 
         }
-        public void SetPosition(double T, double L, double B, double R)
+        public void SetPosition(double L, double T, double R, double B)
         {
+
             top = T;
             left = L;
             bot = B;
@@ -157,7 +158,7 @@ namespace Grafische_editor_Design_Patters
             right = Canvas.GetLeft(MyFigure) + sizex;
             MyFigure.Height = sizey;
             MyFigure.Width = sizex;
-            SetPosition(Canvas.GetTop(MyFigure), Canvas.GetLeft(MyFigure), Canvas.GetTop(MyFigure) + sizey, Canvas.GetLeft(MyFigure) + sizex);
+            SetPosition(Canvas.GetLeft(MyFigure),Canvas.GetTop(MyFigure), Canvas.GetLeft(MyFigure) + sizex, Canvas.GetTop(MyFigure) + sizey);
 
             ControlPosition();
 
