@@ -135,7 +135,6 @@ namespace Grafische_editor_Design_Patters
             end.Y -= 91;
             if (currShape == MyShape.SelectBox)
             {
-                SelectBorder.Visibility = Visibility.Visible;
                 Canvas.SetLeft(SelectBorder, start.X);
                 Canvas.SetBottom(SelectBorder, end.Y);
             }
@@ -197,11 +196,12 @@ namespace Grafische_editor_Design_Patters
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 end = e.GetPosition(this);
-                end.Y -= 50;
+                end.Y -= 91;
                 double moveX = end.X - start.X;
                 double moveY = end.Y - start.Y;
                 if (currShape == MyShape.SelectBox)
                 {
+                    SelectBorder.Visibility = Visibility.Visible;
                     Canvas.SetLeft(SelectBorder, start.X);
                     Canvas.SetTop(SelectBorder, start.Y);
                     Canvas.SetRight(SelectBorder, end.X);
