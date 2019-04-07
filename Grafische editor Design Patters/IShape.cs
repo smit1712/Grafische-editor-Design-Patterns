@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Grafische_editor_Design_Patters
 {
-    interface IShapeVisitor
+    interface IShape
     {
-        void Accept(IVisitor v);
+        List<Ornament> GetOrnament();
     }
 }

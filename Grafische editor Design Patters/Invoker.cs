@@ -16,6 +16,7 @@ namespace Grafische_editor_Design_Patters
     {
         private List<Command> commands = new List<Command>();
         private int CommandCounter = 0;
+        private int CommandsDone = 0;
 
    
         public void ellipse(Point s, Point e, Canvas c, List<Figuren> AF)
@@ -34,6 +35,7 @@ namespace Grafische_editor_Design_Patters
 
         public void rectangle(Point s, Point e, Canvas c, List<Figuren> AF)
         {
+
             DrawRectangle DE = new DrawRectangle(s, e, c, AF);
             if (CommandCounter <= commands.Count())
             {
@@ -48,7 +50,6 @@ namespace Grafische_editor_Design_Patters
 
         public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,ref List<Figuren> SF , Border SB)
         {
-           
             SelectShape DE = new SelectShape(s, e, c, AF,ref SF, SB);
             if (CommandCounter <= commands.Count())
             {
@@ -93,14 +94,37 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
+        public void AddOrnament(ref List<Figuren> SF, string Or, String Loc)
+        {
+            foreach (Figuren F in SF) {
+                AddOrnament AO = new AddOrnament(F, Or, Loc);
+                if (CommandCounter <= commands.Count())
+                {
+                    commands.Insert(CommandCounter, AO);
+                }
+                else
+                {
+                    commands.Add(AO);
+                }
+                CommandCounter++;
+            }
+        }
+
+
         public void ExecuteCommands()
-        {        
-              commands[CommandCounter -1].Execute();
+        {
+             while(CommandsDone < CommandCounter)
+            {
+                commands[CommandsDone].Execute();
+                CommandsDone++;
+            }
+              
         }
         public void Undo(Canvas C, List<Figuren> AF)
         {
             C.Children.Clear();
             AF.Clear();
+            CommandsDone = 0;
             if(CommandCounter > 0)
             CommandCounter--;
             for (int i = 0; i < CommandCounter; i++)
@@ -113,6 +137,7 @@ namespace Grafische_editor_Design_Patters
             if (CommandCounter < commands.Count())
             {
                 CommandCounter++;
+                CommandsDone++;
                 commands[CommandCounter - 1].Execute();
             }
         }

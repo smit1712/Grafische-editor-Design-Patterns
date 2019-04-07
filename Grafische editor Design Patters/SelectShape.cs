@@ -23,6 +23,8 @@ namespace Grafische_editor_Design_Patters
             SelectedFiguren = SF;
             AllFiguren = AF;
             SelectBorder = SB;
+            start = s;
+            end = e;
         }
 
  
@@ -33,11 +35,16 @@ namespace Grafische_editor_Design_Patters
 
             foreach (Figuren F in AllFiguren)
             {
+
+                double LeftBorder = Canvas.GetLeft(SelectBorder);
+                double RightBorder = Canvas.GetRight(SelectBorder);
+                double TopBorder = Canvas.GetTop(SelectBorder);
+                double BotBorder = Canvas.GetBottom(SelectBorder);
                 F.Deselect();
-                if (F.left > Canvas.GetLeft(SelectBorder) && F.right < Canvas.GetRight(SelectBorder) && F.top > Canvas.GetTop(SelectBorder) && F.bot < Canvas.GetBottom(SelectBorder))
+                if (F.left > start.X && F.right < end.X && F.top > start.Y && F.bot < end.Y)
                 {
                     SelectedFiguren.Add(F);
-                    F.Select();
+                    F.Select();                    
                 }
             }
         }

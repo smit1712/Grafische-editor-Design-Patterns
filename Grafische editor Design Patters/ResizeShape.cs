@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace Grafische_editor_Design_Patters
 {
-    class ResizeShape : IShapeVisitor
+    class ResizeShape : Ivisitable
     {
         public void Accept(IVisitor v)
         {

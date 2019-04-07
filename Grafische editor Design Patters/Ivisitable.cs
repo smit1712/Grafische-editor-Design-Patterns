@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Grafische_editor_Design_Patters
 {
-    interface IVisitor
+    interface Ivisitable
     {
-        void Visit(Save S);
-        void Visit(Load L);
-        void Visit(ResizeShape R);
-        void Visit(MoveShape M);
+        void Accept(IVisitor v);
     }
 }

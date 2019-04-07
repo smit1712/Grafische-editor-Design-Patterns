@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace Grafische_editor_Design_Patters
 {
     class Rechthoeken : Figuren
     {
-        public Rechthoeken(Rectangle R) : base(R, "Rechthoek")
+        public Rechthoeken(Rectangle R, Canvas C) : base(R, "Rechthoek", C)
         {
            
         }

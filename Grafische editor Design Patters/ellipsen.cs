@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Media;
-
+using System.Windows.Controls;
 
 namespace Grafische_editor_Design_Patters
 {
     class Ellipsen : Figuren
     {
-        public Ellipsen(Ellipse E) : base(E, "Ellipse")
+        public Ellipsen(Ellipse E, Canvas C) : base(E, "Ellipse", C)
         {
             
         }

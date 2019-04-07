@@ -26,13 +26,16 @@ namespace Grafische_editor_Design_Patters
         {
             Line, Ellipse, Rectangle, SelectBox, Move, Resize, Group,DeGroup
         }
+        
         static Point start;
         static Point end;        
         private static List<Figuren> AllFiguren = new List<Figuren>();
         private MyShape currShape = MyShape.SelectBox;
         private static List<Figuren> SelectedFiguren = new List<Figuren>();
         private Invoker invoker = new Invoker();
-        private VisitExecutor Executor;
+        private Visitor visitor;
+        private string OrnamentLocation = "Top";
+
 
 
         Border SelectBorder = new Border() //selectborder definition
@@ -53,7 +56,7 @@ namespace Grafische_editor_Design_Patters
         {
             InitializeComponent();
             ResetCanvas();
-            Executor = new VisitExecutor(ref AllFiguren, ref SelectedFiguren, start, end,ref MyCanvas);
+            visitor = new Visitor(ref AllFiguren, ref SelectedFiguren, start, end,ref MyCanvas);
     }
 
         private void EllipseButton_Click(object sender, RoutedEventArgs e)
@@ -86,14 +89,36 @@ namespace Grafische_editor_Design_Patters
         {
             currShape = MyShape.DeGroup;
         }
+        private void AddOrnament_Click(object sender, RoutedEventArgs e)
+        {
+            OrnamentTextBox.Visibility = Visibility.Visible;
+            OrnamentTextBox.Focus();
+        }
+        private void OrnamentTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                invoker.AddOrnament(ref SelectedFiguren, OrnamentTextBox.Text, OrnamentLocation);
+                invoker.ExecuteCommands();
+                OrnamentTextBox.Visibility = Visibility.Hidden;
+            }
+        }
+        private void RadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+            if (radioButton == null)
+                return;
+            OrnamentLocation = radioButton.Content.ToString();
+        }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Executor.Visit(new Save());
+            visitor.Visit(new Save());
+
         }
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
             ResetCanvas();
-            Executor.Visit(new Load());
+            visitor.Visit(new Load());
         }
         private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
@@ -106,9 +131,14 @@ namespace Grafische_editor_Design_Patters
         private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             start = e.GetPosition(this);
-            start.Y -= 50;
+            start.Y -= 91;
+            end.Y -= 91;
             if (currShape == MyShape.SelectBox)
+            {
                 SelectBorder.Visibility = Visibility.Visible;
+                Canvas.SetLeft(SelectBorder, start.X);
+                Canvas.SetBottom(SelectBorder, end.Y);
+            }
             else
                 SelectBorder.Visibility = Visibility.Hidden;
 
@@ -121,6 +151,7 @@ namespace Grafische_editor_Design_Patters
         }
         private void MyCanvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
+       
             if (currShape == MyShape.SelectBox)
                 SelectBorder.Visibility = Visibility.Visible;
 
@@ -140,23 +171,25 @@ namespace Grafische_editor_Design_Patters
                     invoker.SelectShape(start, end, MyCanvas, AllFiguren,ref SelectedFiguren,SelectBorder);
                     break;
                 case MyShape.Move:
-                    Executor.RefreshPoints(start, end);
-                    Executor.Visit(new MoveShape());
+                    visitor.RefreshPoints(start, end);
+                    visitor.Visit(new MoveShape());
                     break;
                 case MyShape.Resize:
-                    Executor.RefreshPoints(start, end);
-                    Executor.Visit(new ResizeShape());
+                    visitor.RefreshPoints(start, end);
+                    visitor.Visit(new ResizeShape());
                     break;
                 case MyShape.Group:
                     invoker.groupIn(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);
                     break;
                 case MyShape.DeGroup:
                     invoker.groupOut(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);
-                    break;
+                    break;                
                 default:
                     return;
             }
             invoker.ExecuteCommands();
+            start = new Point();
+            end = new Point();
         }
 
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)

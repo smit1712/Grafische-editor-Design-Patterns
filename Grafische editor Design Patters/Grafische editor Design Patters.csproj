@@ -55,22 +55,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddOrnament.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="DrawEllipse.cs" />
     <Compile Include="DrawRectangle.cs" />
     <Compile Include="groupIn.cs" />
     <Compile Include="groupOut.cs" />
     <Compile Include="Invoker.cs" />
+    <Compile Include="IShape.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="MoveShape.cs" />
+    <Compile Include="Ornament.cs" />
+    <Compile Include="OrnamentDecorator.cs" />
     <Compile Include="Rechthoeken.cs" />
     <Compile Include="ResizeShape.cs" />
     <Compile Include="Save.cs" />
     <Compile Include="SelectShape.cs" />
-    <Compile Include="IShapeVisitor.cs" />
+    <Compile Include="Ivisitable.cs" />
     <Compile Include="IVisitor.cs" />
-    <Compile Include="VisitExecutor.cs" />
-    <Compile Include="VisitorCollector.cs" />
+    <Compile Include="ShapeDecorator.cs" />
+    <Compile Include="Visitor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

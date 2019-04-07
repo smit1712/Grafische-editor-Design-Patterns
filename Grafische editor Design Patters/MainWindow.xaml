@@ -8,23 +8,32 @@
         Title="MainWindow" Height="960" Width="1440">
     <Grid>
         <DockPanel>
-            <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="50">
-                <RadioButton Name="EllipseButton" Content="Ellipse" Height="50" Width="80" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="EllipseButton_Click"/>
-                <RadioButton Name="RectangleButton" BorderBrush="#FF969696" Content="Rectangle" Height="50" Width="80" GroupName="ShapeGroup" Click="RectangleButton_Click"/>
-                <RadioButton Name="SelectButton" BorderBrush="#FF969696" Content="Select" Height="50" Width="80" GroupName="ShapeGroup" Click="SelectButton_Click"/>
-                <RadioButton Name="MoveButton" BorderBrush="#FF969696" Content="Move" Height="50" Width="80" GroupName="ShapeGroup" Click="MoveButton_Click" />
-                <RadioButton Name="ResizeButton" BorderBrush="#FF969696" Content="Resize" Height="50" Width="80" GroupName="ShapeGroup" Click="ResizeButton_Click" />
-                <RadioButton Name="GroupButton" BorderBrush="#FF969696" Content="GroupIn" Height="50" Width="80" GroupName="ShapeGroup" Click="GroupButton_Click" />
-                <RadioButton Name="DeGroupButton" BorderBrush="#FF969696" Content="DeGroup" Height="50" Width="80" GroupName="ShapeGroup" Click="DeGroupButton_Click" />
-                <RadioButton Name="SaveButton" BorderBrush="#FF969696" Content="Save" Height="50" Width="80" GroupName="ShapeGroup" Click="SaveButton_Click" />
-                <RadioButton Name="LoadButton" BorderBrush="#FF969696" Content="load" Height="50" Width="80" GroupName="ShapeGroup" Click="LoadButton_Click" />
-                <RadioButton Name="UndoButton" BorderBrush="#FF969696" Content="Undo" Height="50" Width="80" GroupName="ShapeGroup" Click="UndoButton_Click" />
-                <RadioButton Name="RedoButton" BorderBrush="#FF969696" Content="Redo" Height="50" Width="80" GroupName="ShapeGroup" Click="RedoButton_Click" />
+            <ToolBar Name="MyToolbar" DockPanel.Dock="Top" Height="91">
+                <RadioButton Name="EllipseButton" Content="Ellipse" Height="71" Width="84" BorderBrush="#FF969696" GroupName="ShapeGroup" Click="EllipseButton_Click" Margin="0,10,0,5"/>
+                <RadioButton Name="RectangleButton" BorderBrush="#FF969696" Content="Rectangle" Height="71" Width="80" GroupName="ShapeGroup" Click="RectangleButton_Click" Margin="0,10,0,5"/>
+                <RadioButton Name="SelectButton" BorderBrush="#FF969696" Content="Select" Height="71" Width="80" GroupName="ShapeGroup" Click="SelectButton_Click" Margin="0,10,0,5"/>
+                <RadioButton Name="MoveButton" BorderBrush="#FF969696" Content="Move" Height="71" Width="80" GroupName="ShapeGroup" Click="MoveButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="ResizeButton" BorderBrush="#FF969696" Content="Resize" Height="71" Width="80" GroupName="ShapeGroup" Click="ResizeButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="AddOrnamentButton" BorderBrush="#FF969696" Content="AddOrnament" Height="71" Width="80" GroupName="ShapeGroup" Click="AddOrnament_Click" Margin="0,10,0,5" />
+                <RadioButton Name="GroupButton" BorderBrush="#FF969696" Content="GroupIn" Height="71" Width="80" GroupName="ShapeGroup" Click="GroupButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="DeGroupButton" BorderBrush="#FF969696" Content="DeGroup" Height="71" Width="80" GroupName="ShapeGroup" Click="DeGroupButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="SaveButton" BorderBrush="#FF969696" Content="Save" Height="71" Width="80" GroupName="ShapeGroup" Click="SaveButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="LoadButton" BorderBrush="#FF969696" Content="load" Height="71" Width="80" GroupName="ShapeGroup" Click="LoadButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="UndoButton" BorderBrush="#FF969696" Content="Undo" Height="71" Width="80" GroupName="ShapeGroup" Click="UndoButton_Click" Margin="0,10,0,5" />
+                <RadioButton Name="RedoButton" BorderBrush="#FF969696" Content="Redo" Height="71" Width="80" GroupName="ShapeGroup" Click="RedoButton_Click" Margin="0,10,0,5" />
+                <TextBox x:Name="OrnamentTextBox" TextWrapping="Wrap" Text="OrnamentText" Width="197" Margin="0,10,0,0" KeyDown="OrnamentTextBox_KeyDown" Visibility="Visible" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="13"/>
+                <GroupBox Name="OrnamentLocationBox" Header="OrnamentLocation" Height="81" VerticalAlignment="Top" Width="110">
+                    <StackPanel Name="LocationPanel">
+                        <RadioButton Content="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButtonChecked" IsChecked="True"/>
+                        <RadioButton Content="Bot" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButtonChecked"/>
+                        <RadioButton Content="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButtonChecked"/>
+                        <RadioButton Content="Right" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButtonChecked"/>
+                    </StackPanel>
+                </GroupBox>
 
             </ToolBar>
 
-            <Canvas Name="MyCanvas" Background="AntiqueWhite" Width="1422" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,10">
-
+            <Canvas Name="MyCanvas" Background="AntiqueWhite" Width="1430" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,0">
 
                 <Ellipse Fill="Yellow" Height="50" Width="100" StrokeThickness="2" Stroke="Black" Canvas.Left="100" Canvas.Top="20" Visibility="Hidden"/>
 

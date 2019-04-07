@@ -30,7 +30,8 @@ namespace Grafische_editor_Design_Patters
             {
                 Stroke = Brushes.Green,
                 Fill = Brushes.Red,
-                StrokeThickness = 4,
+                StrokeThickness = 4,         
+               
             };
 
             if (end.X >= start.X)
@@ -62,7 +63,8 @@ namespace Grafische_editor_Design_Patters
                 newRectangle.SetValue(Canvas.BottomProperty, start.Y - 50);
                 newRectangle.Height = start.Y - end.Y;
             }
-            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle);
+            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);
+
             Allfiguren.Add(RectangleFiguren);
             MyCanvas.Children.Add(newRectangle);
         }

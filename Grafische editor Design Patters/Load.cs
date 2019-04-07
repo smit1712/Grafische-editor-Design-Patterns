@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Grafische_editor_Design_Patters
 {
-    class Load : IShapeVisitor
+    class Load : Ivisitable
     {
         public void Accept(IVisitor v)
         {

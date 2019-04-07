@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Grafische_editor_Design_Patters
 {
-    public class Figuren
+    abstract public class Figuren : IShape
     {
         private List<Figuren> Groep = new List<Figuren>();
         public double top, left, bot,right;
@@ -18,12 +18,16 @@ namespace Grafische_editor_Design_Patters
         public bool Isingroup;
         public Figuren Parent;
         public string type;
-        public Figuren(Shape S, string T)
+        private List<Ornament> Ornamenten = new List<Ornament>();
+        public Canvas Mycanvas;
+        public Figuren(Shape S, string T, Canvas C)
         {
             MyFigure = S;
             type = T;
+            Mycanvas = C;
             SetPosition(Canvas.GetTop(S), Canvas.GetLeft(S), Canvas.GetBottom(S), Canvas.GetRight(S));
-        }     
+
+        }
         public void SetPosition(double T, double L, double B, double R)
         {
             top = T;
@@ -34,6 +38,11 @@ namespace Grafische_editor_Design_Patters
             Canvas.SetTop(MyFigure, top);
             Canvas.SetRight(MyFigure, right);
             Canvas.SetBottom(MyFigure, bot);
+        }
+        public void AddNewOrniment(string text, string location)
+        {
+            Ornament Or = new Ornament(Mycanvas,text,location,MyFigure);
+            Ornamenten.Add(Or);
         }
         public Shape GetShape()
         {
@@ -65,7 +74,7 @@ namespace Grafische_editor_Design_Patters
             }
             return size;
         }
-        public void InsertGroep(Figuren F)
+        public void Add(Figuren F)
         {
             if (this != F && F.Isingroup != true)
             {
@@ -127,6 +136,10 @@ namespace Grafische_editor_Design_Patters
             Canvas.SetTop(MyFigure, Canvas.GetTop(MyFigure) + y);
             Canvas.SetRight(MyFigure, Canvas.GetRight(MyFigure) + x);
             Canvas.SetBottom(MyFigure, Canvas.GetBottom(MyFigure) + y);
+            foreach (Ornament OR in Ornamenten)
+            {
+                OR.ChangeLocation();
+            }
             ControlPosition();
             foreach (Figuren F in Groep)
             {
@@ -152,6 +165,11 @@ namespace Grafische_editor_Design_Patters
             {
                 F.Resize(start, end);
             }
+        }
+
+        public List<Ornament> GetOrnament()
+        {
+            return Ornamenten;
         }
     }
 }

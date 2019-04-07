@@ -54,7 +54,7 @@ namespace Grafische_editor_Design_Patters
             {
                 if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren.Count() != 0)
                 {
-                    SelectedFiguren[0].InsertGroep(F);
+                    SelectedFiguren[0].Add(F);
                 }
             }
         }
