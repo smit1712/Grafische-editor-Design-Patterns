@@ -186,8 +186,10 @@ namespace Grafische_editor_Design_Patters
                         MyCanvas.Children.Add(newRectangle);
                         Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);
                         RectangleFiguren.SetPosition(position[0], position[1], position[2], position[3]);
-                        templist = new List<Figuren>();
-                        templist.Add(RectangleFiguren);
+                        templist = new List<Figuren>
+                        {
+                            RectangleFiguren
+                        };
                         foreach (string[] str in ornamentsloaded)
                         {
                             commandinvoker.AddOrnament(ref templist, str[1], str[0]);
@@ -220,8 +222,10 @@ namespace Grafische_editor_Design_Patters
                         MyCanvas.Children.Add(NewElipse);
                         Ellipsen ElipseFiguren = new Ellipsen(NewElipse, MyCanvas);
                         ElipseFiguren.SetPosition(position[0], position[1], position[2], position[3]);
-                        templist = new List<Figuren>();
-                        templist.Add(ElipseFiguren);
+                        templist = new List<Figuren>
+                        {
+                            ElipseFiguren
+                        };
                         foreach (string[] str in ornamentsloaded)
                         {
                             commandinvoker.AddOrnament(ref templist, str[1], str[0]);

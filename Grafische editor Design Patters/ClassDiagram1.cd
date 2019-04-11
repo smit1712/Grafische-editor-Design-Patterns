@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Grafische_editor_Design_Patters.AddOrnament" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAASAAAAAAAAAAAgAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>AddOrnament.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.App" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.DrawEllipse" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAiAAAAAAQgAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>DrawEllipse.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.DrawRectangle" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAiAAAAAAQgAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>DrawRectangle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Ellipsen" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Ellipsen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Figuren" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AA4AAIAgQIAAggCAAAAAQgiAAAAJBgAABAAAQAEAgAQ=</HashCode>
+      <FileName>Figuren.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.GroupIn" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIAAACAAAAAAQgAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>groupIn.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.GroupOut" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIAAACAAAAAAQgAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>groupOut.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Invoker" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAABAGAAIABAQAAAAAAAIBAAAoAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Invoker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Load" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Load.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Grafische_editor_Design_Patters.MainWindow.MyShape" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BQQaAAQCAgCgAIEoCAAAgAAAAAQQACQAAAAAAAACABA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.MoveShape" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MoveShape.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Ornament" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAgACAAIAAIAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Ornament.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.OrnamentDecorator" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OrnamentDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Rechthoeken" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Rechthoeken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.ResizeShape" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResizeShape.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Save" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Save.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.SelectShape" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAAACAAAAAAQgAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SelectShape.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.ShapeDecorator" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeDecorator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Visitor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAiAgAEAAQgAACAAAAAAAQAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Visitor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Properties.Resources" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grafische_editor_Design_Patters.Properties.Settings" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Grafische_editor_Design_Patters.ICommand">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Grafische_editor_Design_Patters.IDecorator" Collapsed="true">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Grafische_editor_Design_Patters.Ivisitable" Collapsed="true">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ivisitable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Grafische_editor_Design_Patters.IVisitor" Collapsed="true">
+    <Position X="10.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

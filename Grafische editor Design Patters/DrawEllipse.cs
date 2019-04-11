@@ -10,11 +10,11 @@ namespace Grafische_editor_Design_Patters
     /// Command voor tekeken van de Ellipse
     /// Execute functie handelt alles voor het tekenen van de Ellipse
     /// </summary>
-    class DrawEllipse : Command
+    class DrawEllipse : ICommand
     {
-        Point start, end;
-        Canvas MyCanvas;
-        List<Figuren> Allfiguren;
+        private Point start, end;
+        private Canvas MyCanvas;
+        private List<Figuren> Allfiguren;
         public DrawEllipse(Point s, Point e, Canvas c, List<Figuren> AF)
         {
             start = s;

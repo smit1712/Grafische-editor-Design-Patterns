@@ -4,7 +4,7 @@
     /// Interface voor alle command's
     /// Nodig voor commandPattern
     /// </summary>
-    interface Command
+    interface ICommand
     {
         void Execute();
     }

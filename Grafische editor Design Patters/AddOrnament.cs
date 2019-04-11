@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Grafische_editor_Design_Patters
 {
-    class AddOrnament : Command
+    class AddOrnament : ICommand
     {
-        private string Or;
-        private string Loc;
-        private Figuren Fig;
+        private readonly string Or;
+        private readonly string Loc;
+        private readonly Figuren Fig;
         public AddOrnament(Figuren F,string O, string L)
         {
             Or = O;

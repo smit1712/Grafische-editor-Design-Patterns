@@ -9,13 +9,13 @@ namespace Grafische_editor_Design_Patters
     /// GroupIn Command
     /// Execute functie handelt alles voor het grouperen van alle selecteerde figuren
     /// </summary>
-    class groupIn : Command
+    class GroupIn : ICommand
     {
-        List<Figuren> SelectedFiguren;
-        readonly List<Figuren> AllFiguren;
-        Point start, end;
-        Border GroupBorder;
-        public groupIn(Point s, Point e, Canvas c, List<Figuren> SF, List<Figuren> AF, Border GB)
+        private List<Figuren> SelectedFiguren;
+        private readonly List<Figuren> AllFiguren;
+        private Point start, end;
+        private Border GroupBorder;
+        public GroupIn(Point s, Point e, Canvas c, List<Figuren> SF, List<Figuren> AF, Border GB)
         {
             SelectedFiguren = SF;
             AllFiguren = AF;

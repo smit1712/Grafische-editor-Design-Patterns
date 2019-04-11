@@ -1,6 +1,6 @@
 ﻿namespace Grafische_editor_Design_Patters
 {
-    class Load : Ivisitable
+    class Load : IVisitable
     {
         public void Accept(IVisitor v)
         {

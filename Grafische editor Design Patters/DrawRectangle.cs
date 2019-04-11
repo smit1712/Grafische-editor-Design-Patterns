@@ -10,11 +10,11 @@ namespace Grafische_editor_Design_Patters
     /// Command voor tekeken van de Rechthoek
     /// Execute functie handelt alles voor het tekenen van de Rechthoek
     /// </summary>
-    class DrawRectangle : Command
+    class DrawRectangle : ICommand
     {
-        Point start, end;
-        Canvas MyCanvas;
-        List<Figuren> Allfiguren;
+        private Point start, end;
+        private Canvas MyCanvas;
+        private List<Figuren> Allfiguren;
         public DrawRectangle(Point s, Point e, Canvas c, List<Figuren> AF)
         {
             start = s;

@@ -9,13 +9,13 @@ namespace Grafische_editor_Design_Patters
     /// GroupIn Command
     /// Execute functie handelt alles voor het Degrouperen van alle selecteerde figuren
     /// </summary>
-    class groupOut : Command
+    class GroupOut : ICommand
     {
         readonly List<Figuren> SelectedFiguren;
         readonly List<Figuren> AllFiguren;
         Point start, end;
         Border GroupBorder;
-        public groupOut(Point s, Point e, Canvas c, List<Figuren> SF, List<Figuren> AF, Border GB)
+        public GroupOut(Point s, Point e, Canvas c, List<Figuren> SF, List<Figuren> AF, Border GB)
         {
             SelectedFiguren = SF;
             AllFiguren = AF;

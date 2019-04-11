@@ -81,8 +81,7 @@ namespace Grafische_editor_Design_Patters
         }
         private void RadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            RadioButton radioButton = sender as RadioButton;
-            if (radioButton == null)
+            if (!(sender is RadioButton radioButton))
                 return;
             OrnamentLocation = radioButton.Content.ToString();
         }
@@ -144,10 +143,10 @@ namespace Grafische_editor_Design_Patters
             switch (currShape)
             {
                 case MyShape.Ellipse:
-                    invoker.ellipse(start, end, MyCanvas, AllFiguren);
+                    invoker.Ellipse(start, end, MyCanvas, AllFiguren);
                     break;
                 case MyShape.Rectangle:
-                    invoker.rectangle(start, end, MyCanvas, AllFiguren);
+                    invoker.Rectangle(start, end, MyCanvas, AllFiguren);
                     break;
                 case MyShape.SelectBox:
                     invoker.SelectShape(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, SelectBorder);
@@ -161,10 +160,10 @@ namespace Grafische_editor_Design_Patters
                     visitor.Visit(new ResizeShape());
                     break;
                 case MyShape.Group:
-                    invoker.groupIn(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);
+                    invoker.GroupIn(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);
                     break;
                 case MyShape.DeGroup:
-                    invoker.groupOut(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);
+                    invoker.GroupOut(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);
                     break;
                 default:
                     return;

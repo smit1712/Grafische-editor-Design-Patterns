@@ -18,11 +18,11 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     class Invoker
     {
-        private List<Command> commands = new List<Command>();
+        private List<ICommand> commands = new List<ICommand>();
         private int CommandCounter = 0;
         private int CommandsDone = 0;
    
-        public void ellipse(Point s, Point e, Canvas c, List<Figuren> AF)
+        public void Ellipse(Point s, Point e, Canvas c, List<Figuren> AF)
         {
             DrawEllipse El = new DrawEllipse(s, e, c, AF);
             if (CommandCounter <= commands.Count())
@@ -36,7 +36,7 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
-        public void rectangle(Point s, Point e, Canvas c, List<Figuren> AF)
+        public void Rectangle(Point s, Point e, Canvas c, List<Figuren> AF)
         {
 
             DrawRectangle Re = new DrawRectangle(s, e, c, AF);
@@ -66,10 +66,10 @@ namespace Grafische_editor_Design_Patters
 
         }        
 
-        public void groupIn(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
+        public void GroupIn(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
            
-            groupIn Gi = new groupIn(s, e, c, SF, AF, GB);
+            GroupIn Gi = new GroupIn(s, e, c, SF, AF, GB);
             if (CommandCounter <= commands.Count())
             {
                 commands.Insert(CommandCounter, Gi);
@@ -82,10 +82,10 @@ namespace Grafische_editor_Design_Patters
 
         }
 
-        public void groupOut(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
+        public void GroupOut(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
             
-            groupOut Go = new groupOut(s, e, c, SF, AF, GB);
+            GroupOut Go = new GroupOut(s, e, c, SF, AF, GB);
             if (CommandCounter <= commands.Count())
             {
                 commands.Insert(CommandCounter, Go);

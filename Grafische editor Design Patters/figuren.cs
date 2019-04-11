@@ -23,7 +23,7 @@ namespace Grafische_editor_Design_Patters
         public double top, left, bot, right;
         public Shape MyFigure;
         public bool Isingroup;
-        public Figuren Parent;
+        public Figuren Parent { get; private set; }        
         public string type;
         private readonly Canvas Mycanvas;
         public Figuren(Shape S, string T, Canvas C)
@@ -89,8 +89,15 @@ namespace Grafische_editor_Design_Patters
             if (this != F && F.Isingroup != true)
             {
                 Groep.Add(F);
-                F.Parent = this;
+                F.AddParent(this);
                 F.Isingroup = true;
+            }
+        }
+        public void AddParent(Figuren F)
+        {
+            if(Parent == null)
+            {
+                Parent = F;
             }
         }
         public void RemoveFromGroep(Figuren F)

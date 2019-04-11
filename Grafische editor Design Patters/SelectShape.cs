@@ -9,12 +9,12 @@ namespace Grafische_editor_Design_Patters
     /// Command voor Selecteren van Figuren
     /// Execute vult de selectedFiguren List met alle objecten in de selectborder
     /// </summary>
-    class SelectShape : Command
+    class SelectShape : ICommand
     {
-        List<Figuren> SelectedFiguren;
-        readonly List<Figuren> AllFiguren;
-        Point start, end;
-        Border SelectBorder;
+        private List<Figuren> SelectedFiguren;
+        private readonly List<Figuren> AllFiguren;
+        private Point start, end;
+        private Border SelectBorder;
         public SelectShape(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border SB)
         {
             SelectedFiguren = SF;
@@ -22,24 +22,6 @@ namespace Grafische_editor_Design_Patters
             SelectBorder = SB;
             start = s;
             end = e;
-        }
-        private void SelectInBorder()
-        {
-            SelectedFiguren.Clear();
-            foreach (Figuren F in AllFiguren)
-            {
-
-                double LeftBorder = Canvas.GetLeft(SelectBorder);
-                double RightBorder = Canvas.GetRight(SelectBorder);
-                double TopBorder = Canvas.GetTop(SelectBorder);
-                double BotBorder = Canvas.GetBottom(SelectBorder);
-                F.Deselect();
-                if (F.left > start.X && F.right < end.X && F.top > start.Y && F.bot < end.Y)
-                {
-                    SelectedFiguren.Add(F);
-                    F.Select();
-                }
-            }
         }
 
         public void Execute()
@@ -65,7 +47,21 @@ namespace Grafische_editor_Design_Patters
                 SelectBorder.SetValue(Canvas.TopProperty, end.Y - 50);
                 SelectBorder.Height = start.Y - end.Y;
             }
-            SelectInBorder();
+            SelectedFiguren.Clear();
+            foreach (Figuren F in AllFiguren)
+            {
+
+                double LeftBorder = Canvas.GetLeft(SelectBorder);
+                double RightBorder = Canvas.GetRight(SelectBorder);
+                double TopBorder = Canvas.GetTop(SelectBorder);
+                double BotBorder = Canvas.GetBottom(SelectBorder);
+                F.Deselect();
+                if (F.left > start.X && F.right < end.X && F.top > start.Y && F.bot < end.Y)
+                {
+                    SelectedFiguren.Add(F);
+                    F.Select();
+                }
+            }
         }
     }
 }
