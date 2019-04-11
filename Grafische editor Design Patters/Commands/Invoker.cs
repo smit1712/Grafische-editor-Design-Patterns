@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Shapes;
-using System.Windows.Media;
 using System.Windows.Controls;
-
-using System.Windows.Media.Imaging;
 
 namespace Grafische_editor_Design_Patters
 {
@@ -21,7 +15,7 @@ namespace Grafische_editor_Design_Patters
         private List<ICommand> commands = new List<ICommand>();
         private int CommandCounter = 0;
         private int CommandsDone = 0;
-   
+
         public void Ellipse(Point s, Point e, Canvas c, List<Figuren> AF)
         {
             DrawEllipse El = new DrawEllipse(s, e, c, AF);
@@ -51,9 +45,9 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
-        public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,ref List<Figuren> SF , Border SB)
+        public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border SB)
         {
-            SelectShape Sh = new SelectShape(s, e, c, AF,ref SF, SB);
+            SelectShape Sh = new SelectShape(s, e, c, AF, ref SF, SB);
             if (CommandCounter <= commands.Count())
             {
                 commands.Insert(CommandCounter, Sh);
@@ -64,11 +58,11 @@ namespace Grafische_editor_Design_Patters
             }
             CommandCounter++;
 
-        }        
+        }
 
         public void GroupIn(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
-           
+
             GroupIn Gi = new GroupIn(s, e, c, SF, AF, GB);
             if (CommandCounter <= commands.Count())
             {
@@ -84,7 +78,7 @@ namespace Grafische_editor_Design_Patters
 
         public void GroupOut(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
-            
+
             GroupOut Go = new GroupOut(s, e, c, SF, AF, GB);
             if (CommandCounter <= commands.Count())
             {
@@ -99,7 +93,8 @@ namespace Grafische_editor_Design_Patters
 
         public void AddOrnament(ref List<Figuren> SF, string Or, String Loc)
         {
-            foreach (Figuren F in SF) {
+            foreach (Figuren F in SF)
+            {
                 AddOrnament AO = new AddOrnament(F, Or, Loc);
                 if (CommandCounter <= commands.Count())
                 {
@@ -116,12 +111,12 @@ namespace Grafische_editor_Design_Patters
 
         public void ExecuteCommands()
         {
-             while(CommandsDone < CommandCounter)
+            while (CommandsDone < CommandCounter)
             {
                 commands[CommandsDone].Execute();
                 CommandsDone++;
             }
-              
+
         }
         //Undo voert alle commando's opnieuw uit, behalve de laatste
         public void Undo(Canvas C, List<Figuren> AF, Border SB, Border GB)
@@ -131,8 +126,8 @@ namespace Grafische_editor_Design_Patters
             C.Children.Add(GB);
             AF.Clear();
             CommandsDone = 0;
-            if(CommandCounter > 0)
-            CommandCounter--;
+            if (CommandCounter > 0)
+                CommandCounter--;
             for (int i = 0; i < CommandCounter; i++)
             {
                 commands[i].Execute();

@@ -34,12 +34,6 @@
             </ToolBar>
 
             <Canvas Name="MyCanvas" Background="AntiqueWhite" MouseDown="MyCanvas_MouseDown" MouseUp="MyCanvas_MouseUp" MouseMove="MyCanvas_MouseMove" Margin="0,5,0,0">
-
-                <Ellipse Fill="Yellow" Height="50" Width="100" StrokeThickness="2" Stroke="Black" Canvas.Left="100" Canvas.Top="20" Visibility="Hidden"/>
-
-                <Rectangle Fill="Blue" Height="50" Width="100" Canvas.Left="251" Canvas.Top="20" Visibility="Hidden" />
-
-
             </Canvas>
         </DockPanel>
     </Grid>
