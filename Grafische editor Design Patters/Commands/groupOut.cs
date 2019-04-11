@@ -50,7 +50,7 @@ namespace Grafische_editor_Design_Patters
 
             foreach (Figuren F in AllFiguren)
             {
-                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren.Count() == 0)
+                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren.Count() != 0)
                 {
                     SelectedFiguren[0].RemoveFromGroep(F);
                 }
