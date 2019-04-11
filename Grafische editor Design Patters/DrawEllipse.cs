@@ -51,16 +51,16 @@ namespace Grafische_editor_Design_Patters
 
             if (end.Y >= start.Y)
             {
-                newEllipse.SetValue(Canvas.TopProperty, start.Y - 50);
-                newEllipse.SetValue(Canvas.BottomProperty, end.Y - 50);
+                newEllipse.SetValue(Canvas.TopProperty, start.Y);
+                newEllipse.SetValue(Canvas.BottomProperty, end.Y);
 
 
                 newEllipse.Height = end.Y - start.Y;
             }
             else
             {
-                newEllipse.SetValue(Canvas.TopProperty, end.Y - 50);
-                newEllipse.SetValue(Canvas.BottomProperty, start.Y - 50);
+                newEllipse.SetValue(Canvas.TopProperty, end.Y);
+                newEllipse.SetValue(Canvas.BottomProperty, start.Y);
                 newEllipse.Height = start.Y - end.Y;
             }
             Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse, MyCanvas);

@@ -45,7 +45,11 @@ namespace Grafische_editor_Design_Patters
                         sw.WriteLine("ornament " + OR.GetLocation() + " " + OR.GetText() + " ");
                     }
                     sw.WriteLine(F.type);
-                    sw.WriteLine(Canvas.GetLeft(F.GetShape()) + " " + Canvas.GetTop(F.GetShape()) + " " + Canvas.GetRight(F.GetShape()) + " " + Canvas.GetBottom(F.GetShape()));
+                    int Left = Convert.ToInt16(Canvas.GetLeft(F.GetShape()));
+                    int Top = Convert.ToInt16(Canvas.GetTop(F.GetShape()));
+                    int Right = Convert.ToInt16(Canvas.GetRight(F.GetShape()));
+                    int Bot= Convert.ToInt16(Canvas.GetBottom(F.GetShape()));
+                    sw.WriteLine(Left + " " + Top + " " + Right + " " + Bot);
                     SaveChild(F, sw, RecusionLevel);
                 }
             }
@@ -77,8 +81,11 @@ namespace Grafische_editor_Design_Patters
                 {
                     sw.Write("-");
                 }
-                sw.WriteLine(Canvas.GetLeft(fig.GetShape()) + " " + Canvas.GetTop(fig.GetShape()) + " " + Canvas.GetRight(fig.GetShape()) + " " + Canvas.GetBottom(fig.GetShape()));
-                if (fig.GetGroep().Count != 0)
+                int Left = Convert.ToInt16(Canvas.GetLeft(fig.GetShape()));
+                int Top = Convert.ToInt16(Canvas.GetTop(fig.GetShape()));
+                int Right = Convert.ToInt16(Canvas.GetRight(fig.GetShape()));
+                int Bot = Convert.ToInt16(Canvas.GetBottom(fig.GetShape()));
+                sw.WriteLine(Left + " " + Top + " " + Right + " " + Bot); if (fig.GetGroep().Count != 0)
                     Reclvl++;
                 SaveChild(fig, sw, Reclvl);
             }

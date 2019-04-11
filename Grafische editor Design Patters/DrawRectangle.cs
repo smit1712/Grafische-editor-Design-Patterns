@@ -50,16 +50,16 @@ namespace Grafische_editor_Design_Patters
 
             if (end.Y >= start.Y)
             {
-                newRectangle.SetValue(Canvas.TopProperty, start.Y - 50);
-                newRectangle.SetValue(Canvas.BottomProperty, end.Y - 50);
+                newRectangle.SetValue(Canvas.TopProperty, start.Y);
+                newRectangle.SetValue(Canvas.BottomProperty, end.Y);
 
 
                 newRectangle.Height = end.Y - start.Y;
             }
             else
             {
-                newRectangle.SetValue(Canvas.TopProperty, end.Y - 50);
-                newRectangle.SetValue(Canvas.BottomProperty, start.Y - 50);
+                newRectangle.SetValue(Canvas.TopProperty, end.Y);
+                newRectangle.SetValue(Canvas.BottomProperty, start.Y);
                 newRectangle.Height = start.Y - end.Y;
             }
             Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);

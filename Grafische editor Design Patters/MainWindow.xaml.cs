@@ -66,6 +66,7 @@ namespace Grafische_editor_Design_Patters
         private void AddOrnament_Click(object sender, RoutedEventArgs e)
         {
             OrnamentTextBox.Visibility = Visibility.Visible;
+            OrnamentLocationBox.Visibility = Visibility.Visible;
             OrnamentTextBox.Focus();
         }
         private void OrnamentTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -75,6 +76,7 @@ namespace Grafische_editor_Design_Patters
                 invoker.AddOrnament(ref SelectedFiguren, OrnamentTextBox.Text, OrnamentLocation);
                 invoker.ExecuteCommands();
                 OrnamentTextBox.Visibility = Visibility.Hidden;
+                OrnamentLocationBox.Visibility = Visibility.Hidden;
             }
         }
         private void RadioButtonChecked(object sender, RoutedEventArgs e)
@@ -96,7 +98,7 @@ namespace Grafische_editor_Design_Patters
         }
         private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
-            invoker.Undo(MyCanvas, AllFiguren);
+            invoker.Undo(MyCanvas, AllFiguren, SelectBorder,GroupBorder);
         }
         private void RedoButton_Click(object sender, RoutedEventArgs e)
         {
@@ -106,12 +108,14 @@ namespace Grafische_editor_Design_Patters
         private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             start = e.GetPosition(this);
+            end = start;
             start.Y -= 91;//91 aanpassing inverband met grote van menu
             end.Y -= 91;
             if (currShape == MyShape.SelectBox)
             {
+                SelectBorder.Visibility = Visibility.Visible;
                 Canvas.SetLeft(SelectBorder, start.X);
-                Canvas.SetBottom(SelectBorder, end.Y);
+                Canvas.SetBottom(SelectBorder, end.Y);                
             }
             else
                 SelectBorder.Visibility = Visibility.Hidden;
@@ -125,10 +129,17 @@ namespace Grafische_editor_Design_Patters
         {
 
             if (currShape == MyShape.SelectBox)
-                SelectBorder.Visibility = Visibility.Visible;
-
+            {
+                SelectBorder.Visibility = Visibility.Hidden;
+                SelectBorder.Width = 0;
+                SelectBorder.Height = 0;
+            }
             if (currShape == MyShape.Group || currShape == MyShape.DeGroup)
-                GroupBorder.Visibility = Visibility.Visible;
+            {
+                GroupBorder.Visibility = Visibility.Hidden;
+                GroupBorder.Width = 0;
+                GroupBorder.Height = 0;
+            }
 
             switch (currShape)
             {
@@ -162,6 +173,8 @@ namespace Grafische_editor_Design_Patters
             invoker.ExecuteCommands();
             start = new Point();
             end = new Point();
+            
+
         }
         //Indien select of group gebruikt wordt, verplaatst en hij de bijbehoorende border. En past bij mousedown altijd de end point aan
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)

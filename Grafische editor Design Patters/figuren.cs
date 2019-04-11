@@ -21,7 +21,7 @@ namespace Grafische_editor_Design_Patters
         private List<Ornament> Ornamenten = new List<Ornament>();
 
         public double top, left, bot, right;
-        protected Shape MyFigure;
+        public Shape MyFigure;
         public bool Isingroup;
         public Figuren Parent;
         public string type;

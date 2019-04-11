@@ -124,9 +124,11 @@ namespace Grafische_editor_Design_Patters
               
         }
         //Undo voert alle commando's opnieuw uit, behalve de laatste
-        public void Undo(Canvas C, List<Figuren> AF)
+        public void Undo(Canvas C, List<Figuren> AF, Border SB, Border GB)
         {
             C.Children.Clear();
+            C.Children.Add(SB);
+            C.Children.Add(GB);
             AF.Clear();
             CommandsDone = 0;
             if(CommandCounter > 0)

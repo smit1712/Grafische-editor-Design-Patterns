@@ -16,11 +16,11 @@ namespace Grafische_editor_Design_Patters
         }
         public override void Select()
         {
-            MyFigure.Stroke = Brushes.Gray;
+            MyFigure.Stroke = Brushes.Black;
         }
         public override void Deselect()
         {
-            MyFigure.Stroke = Brushes.DarkGray;
+            MyFigure.Stroke = Brushes.Green;
         }
     }
 }
