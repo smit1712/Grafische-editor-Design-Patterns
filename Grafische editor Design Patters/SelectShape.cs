@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Shapes;
-using System.Windows.Media;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 
 namespace Grafische_editor_Design_Patters
 {
+    /// <summary>
+    /// Command voor Selecteren van Figuren
+    /// Execute vult de selectedFiguren List met alle objecten in de selectborder
+    /// </summary>
     class SelectShape : Command
     {
         List<Figuren> SelectedFiguren;
-        List<Figuren> AllFiguren;
+        readonly List<Figuren> AllFiguren;
         Point start, end;
         Border SelectBorder;
-        public SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,ref List<Figuren> SF, Border SB)
+        public SelectShape(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border SB)
         {
             SelectedFiguren = SF;
             AllFiguren = AF;
@@ -26,13 +23,9 @@ namespace Grafische_editor_Design_Patters
             start = s;
             end = e;
         }
-
- 
-        
         private void SelectInBorder()
         {
             SelectedFiguren.Clear();
-
             foreach (Figuren F in AllFiguren)
             {
 
@@ -44,7 +37,7 @@ namespace Grafische_editor_Design_Patters
                 if (F.left > start.X && F.right < end.X && F.top > start.Y && F.bot < end.Y)
                 {
                     SelectedFiguren.Add(F);
-                    F.Select();                    
+                    F.Select();
                 }
             }
         }

@@ -12,23 +12,26 @@ using System.Windows.Media.Imaging;
 
 namespace Grafische_editor_Design_Patters
 {
+    /// <summary>
+    /// Control class voor het commandpattern. 
+    /// Alle commando's worden hier gemaakt, bijgehouden en uiteindelijk uitgevoerd.
+    /// </summary>
     class Invoker
     {
         private List<Command> commands = new List<Command>();
         private int CommandCounter = 0;
         private int CommandsDone = 0;
-
    
         public void ellipse(Point s, Point e, Canvas c, List<Figuren> AF)
         {
-            DrawEllipse DE = new DrawEllipse(s, e, c, AF);
+            DrawEllipse El = new DrawEllipse(s, e, c, AF);
             if (CommandCounter <= commands.Count())
             {
-                commands.Insert(CommandCounter, DE);
+                commands.Insert(CommandCounter, El);
             }
             else
             {
-                commands.Add(DE);
+                commands.Add(El);
             }
             CommandCounter++;
         }
@@ -36,28 +39,28 @@ namespace Grafische_editor_Design_Patters
         public void rectangle(Point s, Point e, Canvas c, List<Figuren> AF)
         {
 
-            DrawRectangle DE = new DrawRectangle(s, e, c, AF);
+            DrawRectangle Re = new DrawRectangle(s, e, c, AF);
             if (CommandCounter <= commands.Count())
             {
-                commands.Insert(CommandCounter, DE);
+                commands.Insert(CommandCounter, Re);
             }
             else
             {
-                commands.Add(DE);
+                commands.Add(Re);
             }
             CommandCounter++;
         }
 
         public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF,ref List<Figuren> SF , Border SB)
         {
-            SelectShape DE = new SelectShape(s, e, c, AF,ref SF, SB);
+            SelectShape Sh = new SelectShape(s, e, c, AF,ref SF, SB);
             if (CommandCounter <= commands.Count())
             {
-                commands.Insert(CommandCounter, DE);
+                commands.Insert(CommandCounter, Sh);
             }
             else
             {
-                commands.Add(DE);
+                commands.Add(Sh);
             }
             CommandCounter++;
 
@@ -66,14 +69,14 @@ namespace Grafische_editor_Design_Patters
         public void groupIn(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
            
-            groupIn DE = new groupIn(s, e, c, SF, AF, GB);
+            groupIn Gi = new groupIn(s, e, c, SF, AF, GB);
             if (CommandCounter <= commands.Count())
             {
-                commands.Insert(CommandCounter, DE);
+                commands.Insert(CommandCounter, Gi);
             }
             else
             {
-                commands.Add(DE);
+                commands.Add(Gi);
             }
             CommandCounter++;
 
@@ -82,14 +85,14 @@ namespace Grafische_editor_Design_Patters
         public void groupOut(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
         {
             
-            groupOut DE = new groupOut(s, e, c, SF, AF, GB);
+            groupOut Go = new groupOut(s, e, c, SF, AF, GB);
             if (CommandCounter <= commands.Count())
             {
-                commands.Insert(CommandCounter, DE);
+                commands.Insert(CommandCounter, Go);
             }
             else
             {
-                commands.Add(DE);
+                commands.Add(Go);
             }
             CommandCounter++;
         }
@@ -120,6 +123,7 @@ namespace Grafische_editor_Design_Patters
             }
               
         }
+        //Undo voert alle commando's opnieuw uit, behalve de laatste
         public void Undo(Canvas C, List<Figuren> AF)
         {
             C.Children.Clear();
@@ -132,6 +136,7 @@ namespace Grafische_editor_Design_Patters
                 commands[i].Execute();
             }
         }
+        //Redo voer nog bestaande Undo's alsnog uit
         public void Redo()
         {
             if (CommandCounter < commands.Count())

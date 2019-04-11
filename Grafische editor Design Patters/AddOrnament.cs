@@ -19,7 +19,7 @@ namespace Grafische_editor_Design_Patters
         }
         public void Execute()
         {
-            IShape ShapeDC = new OrnamentDecorator(Fig, Or,Loc);
+            IDecorator ShapeDC = new OrnamentDecorator(Fig, Or,Loc);
         }
     }
 }

@@ -62,7 +62,7 @@
     <Compile Include="groupIn.cs" />
     <Compile Include="groupOut.cs" />
     <Compile Include="Invoker.cs" />
-    <Compile Include="IShape.cs" />
+    <Compile Include="IDecorator.cs" />
     <Compile Include="Load.cs" />
     <Compile Include="MoveShape.cs" />
     <Compile Include="Ornament.cs" />

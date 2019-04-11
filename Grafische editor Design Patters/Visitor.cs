@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Text.RegularExpressions;
 
 namespace Grafische_editor_Design_Patters
 {
@@ -166,7 +166,7 @@ namespace Grafische_editor_Design_Patters
 
                 switch (result[readline])
                 {
-                    case "Rechthoek":                      
+                    case "Rechthoek":
 
                         Rectangle newRectangle = new Rectangle()
                         {
@@ -201,7 +201,7 @@ namespace Grafische_editor_Design_Patters
                         AllFiguren.Add(RectangleFiguren);
                         return RectangleFiguren;
                     case "Ellipse":
-                    
+
                         Ellipse NewElipse = new Ellipse()
                         {
                             Stroke = Brushes.Green,
@@ -234,7 +234,7 @@ namespace Grafische_editor_Design_Patters
                         }
                         AllFiguren.Add(ElipseFiguren);
                         return ElipseFiguren;
-                        
+
                     default:
                         readline++;
                         break;

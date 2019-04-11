@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Grafische_editor_Design_Patters
 {
-    class ShapeDecorator : IShape
+    /// <summary>
+    /// Abstracte classe voor OrnamentDecorator 
+    /// </summary>
+    abstract class ShapeDecorator : IDecorator
     {
-        protected IShape DecoratorShape;
+        protected IDecorator DecoratorShape;
 
-        public ShapeDecorator(IShape DecoratedShape)
+        public ShapeDecorator(IDecorator DecoratedShape)
         {
             DecoratorShape = DecoratedShape;
         }
         virtual public List<Ornament> GetOrnament()
         {
-           return DecoratorShape.GetOrnament();
-
+            return DecoratorShape.GetOrnament();
         }
 
     }

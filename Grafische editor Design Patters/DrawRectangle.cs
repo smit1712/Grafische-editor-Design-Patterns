@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Shapes;
-using System.Windows.Media;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Grafische_editor_Design_Patters
 {
+    /// <summary>
+    /// Command voor tekeken van de Rechthoek
+    /// Execute functie handelt alles voor het tekenen van de Rechthoek
+    /// </summary>
     class DrawRectangle : Command
     {
         Point start, end;
@@ -30,8 +29,8 @@ namespace Grafische_editor_Design_Patters
             {
                 Stroke = Brushes.Green,
                 Fill = Brushes.Red,
-                StrokeThickness = 4,         
-               
+                StrokeThickness = 4,
+
             };
 
             if (end.X >= start.X)

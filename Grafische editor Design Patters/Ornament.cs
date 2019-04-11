@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Grafische_editor_Design_Patters
 {
+    /// <summary>
+    /// Ornament object. Wordt door de decorator gemaakt en aan een figuur gekoppeld
+    /// </summary>
     public class Ornament
     {
         protected string Text;
         protected string Location;
-        private Shape Mother;
+        private readonly Shape Mother;
         private TextBlock OrnamentShape = new TextBlock();
         public Ornament(Canvas c, String T, string L, Shape M)
-        {            
+        {
             OrnamentShape.Foreground = new SolidColorBrush(Colors.Black);
             Mother = M;
             OrnamentShape.Text = T;

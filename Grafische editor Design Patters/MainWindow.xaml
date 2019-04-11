@@ -21,7 +21,7 @@
                 <RadioButton Name="LoadButton" BorderBrush="#FF969696" Content="load" Height="71" Width="80" GroupName="ShapeGroup" Click="LoadButton_Click" Margin="0,10,0,5" />
                 <RadioButton Name="UndoButton" BorderBrush="#FF969696" Content="Undo" Height="71" Width="80" GroupName="ShapeGroup" Click="UndoButton_Click" Margin="0,10,0,5" />
                 <RadioButton Name="RedoButton" BorderBrush="#FF969696" Content="Redo" Height="71" Width="80" GroupName="ShapeGroup" Click="RedoButton_Click" Margin="0,10,0,5" />
-                <TextBox x:Name="OrnamentTextBox" TextWrapping="Wrap" Text="OrnamentText" Width="197" Margin="0,10,0,0" KeyDown="OrnamentTextBox_KeyDown" Visibility="Visible" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="13"/>
+                <TextBox x:Name="OrnamentTextBox" TextWrapping="Wrap" Text="OrnamentText" Width="197" Margin="0,10,0,0" KeyDown="OrnamentTextBox_KeyDown" Visibility="Hidden" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="13"/>
                 <GroupBox Name="OrnamentLocationBox" Header="OrnamentLocation" Height="81" VerticalAlignment="Top" Width="110">
                     <StackPanel Name="LocationPanel">
                         <RadioButton Content="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButtonChecked" IsChecked="True"/>

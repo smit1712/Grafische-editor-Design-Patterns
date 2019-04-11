@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Shapes;
-using System.Windows.Media;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace Grafische_editor_Design_Patters
 {
+    /// <summary>
+    /// GroupIn Command
+    /// Execute functie handelt alles voor het Degrouperen van alle selecteerde figuren
+    /// </summary>
     class groupOut : Command
     {
-        List<Figuren> SelectedFiguren;
-        List<Figuren> AllFiguren;
+        readonly List<Figuren> SelectedFiguren;
+        readonly List<Figuren> AllFiguren;
         Point start, end;
         Border GroupBorder;
         public groupOut(Point s, Point e, Canvas c, List<Figuren> SF, List<Figuren> AF, Border GB)

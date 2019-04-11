@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Grafische_editor_Design_Patters
+﻿namespace Grafische_editor_Design_Patters
 {
+    /// <summary>
+    /// Interface voor de visitor.
+    /// Voor het object dat de bezoekbare objecten Bezoekt
+    /// </summary>
     interface IVisitor
     {
         void Visit(Save S);
