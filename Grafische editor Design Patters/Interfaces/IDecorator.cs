@@ -7,6 +7,6 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     interface IDecorator
     {
-        List<Ornament> GetOrnament();
+        void Decorate(Figuren F, string text);
     }
 }

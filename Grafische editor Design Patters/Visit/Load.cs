@@ -13,15 +13,16 @@ namespace Grafische_editor_Design_Patters
     {
 
         private int readline = 0;
-        private Canvas MyCanvas;
+        private readonly Canvas MyCanvas;
         private Invoker commandinvoker = new Invoker();
         private List<Figuren> AllFiguren;
+        private IDecorator decorator;
 
-
-        public Load(List<Figuren> AF, Canvas C)
+        public Load(List<Figuren> AF, Canvas C, IDecorator D)
         {
             AllFiguren = AF;
             MyCanvas = C;
+            decorator = D;
         }
 
         public void Visit(Figuren F)
@@ -41,7 +42,7 @@ namespace Grafische_editor_Design_Patters
             }
             sr.Close();
         }
-      
+
         private Figuren LoadFig(string[] result)
         {
             int[] position = new int[4];
@@ -105,7 +106,27 @@ namespace Grafische_editor_Design_Patters
                         };
                         foreach (string[] str in ornamentsloaded)
                         {
-                            commandinvoker.AddOrnament(ref templist, str[1], str[0]);
+                            switch (str[0])
+                            {
+                                case "Top":
+                                    decorator = new TopOrnamentDecorator();
+                                    break;
+
+                                case "Bot":
+                                    decorator = new BotOrnamentDecorator();
+                                    break;
+
+                                case "Left":
+                                    decorator = new LeftOrnamentDecorator();
+                                    break;
+
+                                case "Right":
+                                    decorator = new RightOrnamentDecorator();
+                                    break;
+                                default:
+                                    break;
+                            }
+                            commandinvoker.AddOrnament(ref templist, str[1], decorator);
                         }
                         commandinvoker.ExecuteCommands();
 
@@ -141,7 +162,27 @@ namespace Grafische_editor_Design_Patters
                         };
                         foreach (string[] str in ornamentsloaded)
                         {
-                            commandinvoker.AddOrnament(ref templist, str[1], str[0]);
+                            switch (str[0])
+                            {
+                                case "Top":
+                                    decorator = new TopOrnamentDecorator();
+                                    break;
+
+                                case "Bot":
+                                    decorator = new BotOrnamentDecorator();
+                                    break;
+
+                                case "Left":
+                                    decorator = new LeftOrnamentDecorator();
+                                    break;
+
+                                case "Right":
+                                    decorator = new RightOrnamentDecorator();
+                                    break;
+                                default:
+                                    break;
+                            }
+                            commandinvoker.AddOrnament(ref templist, str[1], decorator);
                         }
                         commandinvoker.ExecuteCommands();
 

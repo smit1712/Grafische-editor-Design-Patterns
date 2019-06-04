@@ -14,19 +14,19 @@ namespace Grafische_editor_Design_Patters
     /// Bevat Recursieve move,resize en group functies.
     /// De Ornamenten zijn Via deze functie gekoppeld aan de canvas Shape
     /// </summary>
-    public class Figuren : IVisitable, IDecorator
+    public class Figuren : IVisitable
     {
         //List met alle Figuren Behorende bij de groep van dit Figuur
         private List<Figuren> Groep = new List<Figuren>();
         //List Met alle Ornamenten bij deze Figuur
-        private List<Ornament> Ornamenten = new List<Ornament>();
+        public List<Ornament> Ornamenten = new List<Ornament>();
 
         public double top, left, bot, right;
         public Shape MyFigure;
         public bool Isingroup;
         public Figuren Parent { get; private set; }
         public string type;
-        private readonly Canvas Mycanvas;
+        public readonly Canvas Mycanvas;
         private readonly Idelegatefiguur delegatefiguur;
         public Figuren(Shape S, string T, Canvas C)
         {
@@ -55,11 +55,7 @@ namespace Grafische_editor_Design_Patters
             Canvas.SetBottom(MyFigure, bot);
         }
         //Voegt nieuw Ornament toe aan dit Figuur
-        public void AddNewOrnament(string text, string location)
-        {
-            Ornament Or = new Ornament(Mycanvas, text, location, MyFigure);
-            Ornamenten.Add(Or);
-        }
+     
 
         public Shape GetShape()
         {

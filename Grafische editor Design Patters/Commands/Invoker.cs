@@ -91,11 +91,12 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
-        public void AddOrnament(ref List<Figuren> SF, string Or, String Loc)
+        public void AddOrnament(ref List<Figuren> SF, string Or,  IDecorator decorator)
         {
             foreach (Figuren F in SF)
             {
-                AddOrnament AO = new AddOrnament(F, Or, Loc);
+
+                AddOrnament AO = new AddOrnament(F, Or,  decorator);
                 if (CommandCounter <= commands.Count())
                 {
                     commands.Insert(CommandCounter, AO);

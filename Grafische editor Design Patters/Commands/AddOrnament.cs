@@ -8,18 +8,18 @@ namespace Grafische_editor_Design_Patters
 {
     class AddOrnament : ICommand
     {
-        private readonly string Or;
-        private readonly string Loc;
+        private readonly string text;
         private readonly Figuren Fig;
-        public AddOrnament(Figuren F,string O, string L)
+        IDecorator decorator;
+        public AddOrnament(Figuren F,string T,  IDecorator D)
         {
-            Or = O;
-            Loc = L;
+            text = T;
             Fig = F;
+            decorator = D;
         }
         public void Execute()
         {
-            IDecorator ShapeDC = new OrnamentDecorator(Fig, Or,Loc);
+            decorator.Decorate(Fig,text);
         }
     }
 }

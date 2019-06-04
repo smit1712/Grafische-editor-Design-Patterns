@@ -76,6 +76,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\AddOrnament.cs" />
+    <Compile Include="Decorator\RightOrnamentDecorator.cs" />
+    <Compile Include="Decorator\LeftOrnamentDecorator.cs" />
+    <Compile Include="Decorator\BotOrnamentDecorator.cs" />
+    <Compile Include="Decorator\TopOrnamentDecorator.cs" />
     <Compile Include="Interfaces\Idelegatefiguur.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\DrawEllipse.cs" />
@@ -87,14 +91,12 @@
     <Compile Include="Visit\Load.cs" />
     <Compile Include="Visit\MoveShape.cs" />
     <Compile Include="Decorator\Ornament.cs" />
-    <Compile Include="Decorator\OrnamentDecorator.cs" />
     <Compile Include="Figuren\Rechthoeken.cs" />
     <Compile Include="Visit\ResizeShape.cs" />
     <Compile Include="Visit\Save.cs" />
     <Compile Include="Commands\SelectShape.cs" />
     <Compile Include="Interfaces\Ivisitable.cs" />
     <Compile Include="Interfaces\IVisitor.cs" />
-    <Compile Include="Decorator\ShapeDecorator.cs" />
     <Compile Include="Visit\Visitor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

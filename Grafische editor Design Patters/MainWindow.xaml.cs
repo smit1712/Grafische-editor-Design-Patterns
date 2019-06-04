@@ -22,6 +22,7 @@ namespace Grafische_editor_Design_Patters
 
         public static List<Figuren> AllFiguren = new List<Figuren>();
         public static List<Figuren> SelectedFiguren = new List<Figuren>();
+        private IDecorator decorator = new TopOrnamentDecorator();
 
         //invoker en visitor nodig voor het command en visitor pattern
         private Invoker invoker = new Invoker();
@@ -74,7 +75,28 @@ namespace Grafische_editor_Design_Patters
         {
             if (e.Key == Key.Return)
             {
-                invoker.AddOrnament(ref SelectedFiguren, OrnamentTextBox.Text, OrnamentLocation);
+                switch (OrnamentLocation)
+                {
+                    case "Top":
+                        decorator = new TopOrnamentDecorator();
+                        break;
+
+                    case "Bot":
+                        decorator = new BotOrnamentDecorator();
+                        break;
+
+                    case "Left":
+                        decorator = new LeftOrnamentDecorator();
+                        break;
+
+                    case "Right":
+                        decorator = new RightOrnamentDecorator();
+                        break;
+                    default:
+                        break;
+                }
+
+                invoker.AddOrnament(ref SelectedFiguren, OrnamentTextBox.Text, decorator);
                 invoker.ExecuteCommands();
                 OrnamentTextBox.Visibility = Visibility.Hidden;
                 OrnamentLocationBox.Visibility = Visibility.Hidden;
@@ -95,7 +117,7 @@ namespace Grafische_editor_Design_Patters
         {
             ResetCanvas();
             Figuren tempfiguur = new Figuren(new Rectangle(), "Temp", MyCanvas);
-            tempfiguur.Accept(new Load(AllFiguren, MyCanvas));
+            tempfiguur.Accept(new Load(AllFiguren, MyCanvas, decorator));
         }
         private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
