@@ -65,7 +65,7 @@ namespace Grafische_editor_Design_Patters
             }
             Figuren ELlipsenFiguren = new Figuren(newEllipse, "Ellipse", MyCanvas);
             Allfiguren.Add(ELlipsenFiguren);
-            MyCanvas.Children.Add(newEllipse);
+            //MyCanvas.Children.Add(newEllipse);
         }
     }
 }

@@ -4,7 +4,7 @@
     /// Interface voor de visitor pattern.
     /// Maakt een object bezoekbaar
     /// </summary>
-    interface IVisitable
+   public interface IVisitable
     {
         void Accept(IVisitor v);
     }

@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Grafische_editor_Design_Patters
@@ -9,33 +8,38 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     class Ellipsen : Idelegatefiguur
     {
-        Ellipse ellipse;
+        readonly Ellipse ellipse;
         private static Ellipsen _instance;
-        public static Ellipsen Instance(Ellipse e)
+        private Canvas canvas;
+        public static Ellipsen Instance(Ellipse e, Canvas c)
         {
             if (_instance == null)
             {
-                _instance = new Ellipsen(e);
-                
+                _instance = new Ellipsen(e, c);
+
             }
             return _instance;
         }
 
-        private Ellipsen(Ellipse e)
+        private Ellipsen(Ellipse e, Canvas c)
         {
             ellipse = e;
+            canvas = c;
         }
 
         public string toString()
         {
             return "Ellipse";
         }
-        public void draw(int top,int left, int bot, int right)
+        public void Draw(Shape S)
         {
-            Canvas.SetLeft(ellipse, left);
-            Canvas.SetTop(ellipse, top);
-            Canvas.SetRight(ellipse, right);
-            Canvas.SetBottom(ellipse, bot);
+            canvas.Children.Add(S);
+
+        }
+
+        public Shape GetShape()
+        {
+            return ellipse;
         }
     }
 }

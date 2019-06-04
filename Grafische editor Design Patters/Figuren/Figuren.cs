@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace Grafische_editor_Design_Patters
     /// Bevat Recursieve move,resize en group functies.
     /// De Ornamenten zijn Via deze functie gekoppeld aan de canvas Shape
     /// </summary>
-    public class Figuren : IDecorator
+    public class Figuren : IVisitable, IDecorator
     {
         //List met alle Figuren Behorende bij de groep van dit Figuur
         private List<Figuren> Groep = new List<Figuren>();
@@ -23,10 +24,10 @@ namespace Grafische_editor_Design_Patters
         public double top, left, bot, right;
         public Shape MyFigure;
         public bool Isingroup;
-        public Figuren Parent { get; private set; }        
+        public Figuren Parent { get; private set; }
         public string type;
         private readonly Canvas Mycanvas;
-        private Idelegatefiguur delegatefiguur;
+        private readonly Idelegatefiguur delegatefiguur;
         public Figuren(Shape S, string T, Canvas C)
         {
             MyFigure = S;
@@ -35,9 +36,11 @@ namespace Grafische_editor_Design_Patters
             SetPosition(Canvas.GetLeft(S), Canvas.GetTop(S), Canvas.GetRight(S), Canvas.GetBottom(S));
 
             if (S.GetType() == typeof(Rectangle))
-                delegatefiguur = Rechthoeken.Instance((Rectangle)S);
+                delegatefiguur = Rechthoeken.Instance((Rectangle)S, Mycanvas);
             if (S.GetType() == typeof(Ellipse))
-                delegatefiguur = Ellipsen.Instance((Ellipse)S);
+                delegatefiguur = Ellipsen.Instance((Ellipse)S, Mycanvas);
+
+            delegatefiguur.Draw(S);
         }
         //Zet de location van het figuur. Niet recursief
         public void SetPosition(double L, double T, double R, double B)
@@ -101,7 +104,7 @@ namespace Grafische_editor_Design_Patters
         }
         public void AddParent(Figuren F)
         {
-            if(Parent == null)
+            if (Parent == null)
             {
                 Parent = F;
             }
@@ -193,9 +196,19 @@ namespace Grafische_editor_Design_Patters
             }
         }
 
+        public void Accept(IVisitor v)
+        {
+            foreach (Figuren F in Groep)
+            {
+                F.Accept(v);
+            }
+            v.Visit(this);
+        }
+
         public List<Ornament> GetOrnament()
         {
             return Ornamenten;
         }
+
     }
 }

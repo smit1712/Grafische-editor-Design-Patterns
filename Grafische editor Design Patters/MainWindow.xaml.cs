@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Grafische_editor_Design_Patters
 {
@@ -19,8 +20,8 @@ namespace Grafische_editor_Design_Patters
         static Point start;
         static Point end;
 
-        private static List<Figuren> AllFiguren = new List<Figuren>();
-        private static List<Figuren> SelectedFiguren = new List<Figuren>();
+        public static List<Figuren> AllFiguren = new List<Figuren>();
+        public static List<Figuren> SelectedFiguren = new List<Figuren>();
 
         //invoker en visitor nodig voor het command en visitor pattern
         private Invoker invoker = new Invoker();
@@ -87,13 +88,14 @@ namespace Grafische_editor_Design_Patters
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            visitor.Visit(new Save());
+            AllFiguren[0].Accept(new Save(AllFiguren));
 
         }
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
             ResetCanvas();
-            visitor.Visit(new Load());
+            Figuren tempfiguur = new Figuren(new Rectangle(), "Temp", MyCanvas);
+            tempfiguur.Accept(new Load(AllFiguren, MyCanvas));
         }
         private void UndoButton_Click(object sender, RoutedEventArgs e)
         {
@@ -104,7 +106,7 @@ namespace Grafische_editor_Design_Patters
             invoker.Redo();
         }
         //Mous events voeren verschillende acties uit op basis van de geselecteerde myshape enum
-        private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        public void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             start = e.GetPosition(this);
             end = start;
@@ -153,11 +155,17 @@ namespace Grafische_editor_Design_Patters
                     break;
                 case MyShape.Move:
                     visitor.RefreshPoints(start, end);
-                    visitor.Visit(new MoveShape());
+                    foreach (Figuren F in SelectedFiguren)
+                    {
+                        F.Accept(new MoveShape(start, end,SelectedFiguren));
+                    }
                     break;
                 case MyShape.Resize:
                     visitor.RefreshPoints(start, end);
-                    visitor.Visit(new ResizeShape());
+                    foreach(Figuren F in SelectedFiguren)
+                    {
+                        F.Accept(new ResizeShape(start,end));
+                    }
                     break;
                 case MyShape.Group:
                     invoker.GroupIn(start, end, MyCanvas, AllFiguren, ref SelectedFiguren, GroupBorder);

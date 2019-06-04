@@ -1,10 +1,20 @@
-﻿namespace Grafische_editor_Design_Patters
+﻿using System.Windows;
+
+namespace Grafische_editor_Design_Patters
 {
-    class ResizeShape : IVisitable
+    class ResizeShape : IVisitor
     {
-        public void Accept(IVisitor v)
+        Point start, end;
+        public ResizeShape(Point s, Point e)
         {
-            v.Visit(this);
+            start = s;
+            end = e;
         }
+        public void Visit(Figuren F)
+        {
+            F.Resize(start, end);
+        }
+
+
     }
 }

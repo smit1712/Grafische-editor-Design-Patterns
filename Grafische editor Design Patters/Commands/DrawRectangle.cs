@@ -65,7 +65,7 @@ namespace Grafische_editor_Design_Patters
             Figuren RectangleFiguren = new Figuren(newRectangle, "Rechthoek", MyCanvas);
 
             Allfiguren.Add(RectangleFiguren);
-            MyCanvas.Children.Add(newRectangle);
+            //MyCanvas.Children.Add(newRectangle);
         }
     }
 }
