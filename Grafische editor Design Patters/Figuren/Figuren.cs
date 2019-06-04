@@ -13,20 +13,20 @@ namespace Grafische_editor_Design_Patters
     /// Bevat Recursieve move,resize en group functies.
     /// De Ornamenten zijn Via deze functie gekoppeld aan de canvas Shape
     /// </summary>
-    abstract public class Figuren : IDecorator
+    abstract public class Figuur : IDecorator
     {
         //List met alle Figuren Behorende bij de groep van dit Figuur
-        private List<Figuren> Groep = new List<Figuren>();
+        private List<Figuur> Groep = new List<Figuur>();
         //List Met alle Ornamenten bij deze Figuur
         private List<Ornament> Ornamenten = new List<Ornament>();
 
         public double top, left, bot, right;
         public Shape MyFigure;
         public bool Isingroup;
-        public Figuren Parent { get; private set; }        
+        public Figuur Parent { get; private set; }        
         public string type;
         private readonly Canvas Mycanvas;
-        public Figuren(Shape S, string T, Canvas C)
+        public Figuur(Shape S, string T, Canvas C)
         {
             MyFigure = S;
             type = T;
@@ -65,7 +65,7 @@ namespace Grafische_editor_Design_Patters
         {
             MyFigure.Stroke = Brushes.Green;
         }
-        public List<Figuren> GetGroep()
+        public List<Figuur> GetGroep()
         {
             return Groep;
         }
@@ -74,7 +74,7 @@ namespace Grafische_editor_Design_Patters
             int size = 0;
             if (Groep.Count() == 0)
                 return -1;
-            foreach (Figuren F in Groep)
+            foreach (Figuur F in Groep)
             {
 
                 size += F.GetGroupSize();
@@ -84,7 +84,7 @@ namespace Grafische_editor_Design_Patters
             return size;
         }
         //Voeg nieuw figuur toe aan groep van dit figuur
-        public void Add(Figuren F)
+        public void Add(Figuur F)
         {
             if (this != F && F.Isingroup != true)
             {
@@ -93,24 +93,24 @@ namespace Grafische_editor_Design_Patters
                 F.Isingroup = true;
             }
         }
-        public void AddParent(Figuren F)
+        public void AddParent(Figuur F)
         {
             if(Parent == null)
             {
                 Parent = F;
             }
         }
-        public void RemoveFromGroep(Figuren F)
+        public void RemoveFromGroep(Figuur F)
         {
-            List<Figuren> RemoveFiguren = new List<Figuren>();
-            foreach (Figuren figuren in Groep)
+            List<Figuur> RemoveFiguren = new List<Figuur>();
+            foreach (Figuur figuren in Groep)
             {
                 if (figuren == F)
                 {
-                    RemoveFiguren.Add(F);
+                    Add(F);
                 }
             }
-            foreach (Figuren figuren in RemoveFiguren)
+            foreach (Figuur figuren in RemoveFiguren)
             {
                 figuren.Parent = null;
                 Groep.Remove(figuren);
@@ -160,7 +160,7 @@ namespace Grafische_editor_Design_Patters
                 OR.ChangeLocation();
             }
             ControlPosition();
-            foreach (Figuren F in Groep)
+            foreach (Figuur F in Groep)
             {
 
                 F.Move(x, y);
@@ -181,7 +181,7 @@ namespace Grafische_editor_Design_Patters
 
             ControlPosition();
 
-            foreach (Figuren F in Groep)
+            foreach (Figuur F in Groep)
             {
                 F.Resize(start, end);
             }

@@ -19,11 +19,11 @@ namespace Grafische_editor_Design_Patters
         static Point start;
         static Point end;
 
-        private static List<Figuren> AllFiguren = new List<Figuren>();
-        private static List<Figuren> SelectedFiguren = new List<Figuren>();
+        private static List<BasisFiguur> AllFiguren = new List<BasisFiguur>();
+        private static List<BasisFiguur> SelectedFiguren = new List<BasisFiguur>();
 
         //invoker en visitor nodig voor het command en visitor pattern
-        private Invoker invoker = new Invoker();
+        private Invoker invoker = Invoker.Instance;
         private Visitor visitor;
         //default OrnamentLocatie
         private string OrnamentLocation = "Top";

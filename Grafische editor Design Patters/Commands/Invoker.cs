@@ -12,11 +12,27 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     class Invoker
     {
+
         private List<ICommand> commands = new List<ICommand>();
         private int CommandCounter = 0;
         private int CommandsDone = 0;
+        private static Invoker _instance;
+        private Invoker()
+        {
 
-        public void Ellipse(Point s, Point e, Canvas c, List<Figuren> AF)
+        }
+        public static Invoker Instance
+        {
+            get
+                {
+                if (_instance == null)
+                {
+                    _instance = new Invoker();
+                }
+                return _instance;
+            }
+        }
+        public void Ellipse(Point s, Point e, Canvas c, List<BasisFiguur> AF)
         {
             DrawEllipse El = new DrawEllipse(s, e, c, AF);
             if (CommandCounter <= commands.Count())
@@ -30,7 +46,7 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
-        public void Rectangle(Point s, Point e, Canvas c, List<Figuren> AF)
+        public void Rectangle(Point s, Point e, Canvas c, List<BasisFiguur> AF)
         {
 
             DrawRectangle Re = new DrawRectangle(s, e, c, AF);
@@ -45,7 +61,7 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
-        public void SelectShape(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border SB)
+        public void SelectShape(Point s, Point e, Canvas c, List<BasisFiguur> AF, ref List<BasisFiguur> SF, Border SB)
         {
             SelectShape Sh = new SelectShape(s, e, c, AF, ref SF, SB);
             if (CommandCounter <= commands.Count())
@@ -60,7 +76,7 @@ namespace Grafische_editor_Design_Patters
 
         }
 
-        public void GroupIn(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
+        public void GroupIn(Point s, Point e, Canvas c, List<BasisFiguur> AF, ref List<BasisFiguur> SF, Border GB)
         {
 
             GroupIn Gi = new GroupIn(s, e, c, SF, AF, GB);
@@ -76,7 +92,7 @@ namespace Grafische_editor_Design_Patters
 
         }
 
-        public void GroupOut(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border GB)
+        public void GroupOut(Point s, Point e, Canvas c, List<BasisFiguur> AF, ref List<BasisFiguur> SF, Border GB)
         {
 
             GroupOut Go = new GroupOut(s, e, c, SF, AF, GB);
@@ -91,9 +107,9 @@ namespace Grafische_editor_Design_Patters
             CommandCounter++;
         }
 
-        public void AddOrnament(ref List<Figuren> SF, string Or, String Loc)
+        public void AddOrnament(ref List<BasisFiguur> SF, string Or, String Loc)
         {
-            foreach (Figuren F in SF)
+            foreach (BasisFiguur F in SF)
             {
                 AddOrnament AO = new AddOrnament(F, Or, Loc);
                 if (CommandCounter <= commands.Count())
@@ -119,7 +135,7 @@ namespace Grafische_editor_Design_Patters
 
         }
         //Undo voert alle commando's opnieuw uit, behalve de laatste
-        public void Undo(Canvas C, List<Figuren> AF, Border SB, Border GB)
+        public void Undo(Canvas C, List<BasisFiguur> AF, Border SB, Border GB)
         {
             C.Children.Clear();
             C.Children.Add(SB);

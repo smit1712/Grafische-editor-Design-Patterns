@@ -14,8 +14,8 @@ namespace Grafische_editor_Design_Patters
     {
         private Point start, end;
         private Canvas MyCanvas;
-        private List<Figuren> Allfiguren;
-        public DrawEllipse(Point s, Point e, Canvas c, List<Figuren> AF)
+        private List<BasisFiguur> Allfiguren;
+        public DrawEllipse(Point s, Point e, Canvas c, List<BasisFiguur> AF)
         {
             start = s;
             end = e;
@@ -63,7 +63,7 @@ namespace Grafische_editor_Design_Patters
                 newEllipse.SetValue(Canvas.BottomProperty, start.Y);
                 newEllipse.Height = start.Y - end.Y;
             }
-            Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse, MyCanvas);
+            BasisFiguur ELlipsenFiguren = new BasisFiguur(newEllipse, MyCanvas);
             Allfiguren.Add(ELlipsenFiguren);
             MyCanvas.Children.Add(newEllipse);
         }

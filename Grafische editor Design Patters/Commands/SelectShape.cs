@@ -11,11 +11,11 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     class SelectShape : ICommand
     {
-        private List<Figuren> SelectedFiguren;
-        private readonly List<Figuren> AllFiguren;
+        private List<BasisFiguur> SelectedFiguren;
+        private readonly List<BasisFiguur> AllFiguren;
         private Point start, end;
         private Border SelectBorder;
-        public SelectShape(Point s, Point e, Canvas c, List<Figuren> AF, ref List<Figuren> SF, Border SB)
+        public SelectShape(Point s, Point e, Canvas c, List<BasisFiguur> AF, ref List<BasisFiguur> SF, Border SB)
         {
             SelectedFiguren = SF;
             AllFiguren = AF;
@@ -48,18 +48,18 @@ namespace Grafische_editor_Design_Patters
                 SelectBorder.Height = start.Y - end.Y;
             }
             SelectedFiguren.Clear();
-            foreach (Figuren F in AllFiguren)
+            foreach (BasisFiguur F in AllFiguren)
             {
 
                 double LeftBorder = Canvas.GetLeft(SelectBorder);
                 double RightBorder = Canvas.GetRight(SelectBorder);
                 double TopBorder = Canvas.GetTop(SelectBorder);
                 double BotBorder = Canvas.GetBottom(SelectBorder);
-                F.Deselect();
-                if (F.left > start.X && F.right < end.X && F.top > start.Y && F.bot < end.Y)
+                F.figuur.Deselect();
+                if (F.figuur.left > start.X && F.figuur.right < end.X && F.figuur.top > start.Y && F.figuur.bot < end.Y)
                 {
                     SelectedFiguren.Add(F);
-                    F.Select();
+                    F.figuur.Select();
                 }
             }
         }

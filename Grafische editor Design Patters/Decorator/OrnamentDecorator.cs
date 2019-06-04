@@ -8,9 +8,9 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     class OrnamentDecorator : ShapeDecorator
     {
-        public OrnamentDecorator(Figuren DecoratedShape, string Or, string Loc) : base(DecoratedShape)
+        public OrnamentDecorator(BasisFiguur DecoratedShape, string Or, string Loc) : base(DecoratedShape.figuur)
         {
-            DecoratedShape.AddNewOrnament(Or, Loc);
+            DecoratedShape.figuur.AddNewOrnament(Or, Loc);
         }
         public override List<Ornament> GetOrnament()
         {

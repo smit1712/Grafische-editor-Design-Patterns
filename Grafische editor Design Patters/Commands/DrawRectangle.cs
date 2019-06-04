@@ -14,8 +14,8 @@ namespace Grafische_editor_Design_Patters
     {
         private Point start, end;
         private Canvas MyCanvas;
-        private List<Figuren> Allfiguren;
-        public DrawRectangle(Point s, Point e, Canvas c, List<Figuren> AF)
+        private List<BasisFiguur> Allfiguren;
+        public DrawRectangle(Point s, Point e, Canvas c, List<BasisFiguur> AF)
         {
             start = s;
             end = e;
@@ -62,7 +62,7 @@ namespace Grafische_editor_Design_Patters
                 newRectangle.SetValue(Canvas.BottomProperty, start.Y);
                 newRectangle.Height = start.Y - end.Y;
             }
-            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);
+            BasisFiguur RectangleFiguren = new BasisFiguur(newRectangle, MyCanvas);
 
             Allfiguren.Add(RectangleFiguren);
             MyCanvas.Children.Add(newRectangle);

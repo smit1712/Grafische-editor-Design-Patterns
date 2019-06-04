@@ -11,11 +11,11 @@ namespace Grafische_editor_Design_Patters
     /// </summary>
     class GroupOut : ICommand
     {
-        readonly List<Figuren> SelectedFiguren;
-        readonly List<Figuren> AllFiguren;
+        readonly List<BasisFiguur> SelectedFiguren;
+        readonly List<BasisFiguur> AllFiguren;
         Point start, end;
         Border GroupBorder;
-        public GroupOut(Point s, Point e, Canvas c, List<Figuren> SF, List<Figuren> AF, Border GB)
+        public GroupOut(Point s, Point e, Canvas c, List<BasisFiguur> SF, List<BasisFiguur> AF, Border GB)
         {
             SelectedFiguren = SF;
             AllFiguren = AF;
@@ -48,11 +48,11 @@ namespace Grafische_editor_Design_Patters
                 GroupBorder.Height = start.Y - end.Y;
             }
 
-            foreach (Figuren F in AllFiguren)
+            foreach (BasisFiguur F in AllFiguren)
             {
-                if (F.left > start.X && F.left < end.X && F.top > start.Y && F.top < end.Y && SelectedFiguren.Count() != 0)
+                if (F.figuur.left > start.X && F.figuur.left < end.X && F.figuur.top > start.Y && F.figuur.top < end.Y && SelectedFiguren.Count() != 0)
                 {
-                    SelectedFiguren[0].RemoveFromGroep(F);
+                    SelectedFiguren[0].figuur.RemoveFromGroep(F.figuur);
                 }
             }
         }

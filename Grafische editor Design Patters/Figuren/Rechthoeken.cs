@@ -8,11 +8,23 @@ namespace Grafische_editor_Design_Patters
     /// Rechthoeken erft van Figuren
     /// Hierin staan de Rechthoek specefieke dingen, Voornamelijk het Rechthoek object in de constructor
     /// </summary>
-    class Rechthoeken : Figuren
+    class Rechthoeken : Figuur
     {
-        public Rechthoeken(Rectangle R, Canvas C) : base(R, "Rechthoek", C)
+        private static Rechthoeken _instance;
+
+        public static Rechthoeken Instance(Rectangle R, Canvas C)
         {
 
+            if (_instance == null)
+            {
+                _instance = new Rechthoeken(R, C);
+            }
+            return _instance;
+
+        }
+        private Rechthoeken(Rectangle R, Canvas C) : base(R, "Rechthoek", C)
+        {
+            
         }
         public override void Select()
         {
@@ -24,3 +36,4 @@ namespace Grafische_editor_Design_Patters
         }
     }
 }
+

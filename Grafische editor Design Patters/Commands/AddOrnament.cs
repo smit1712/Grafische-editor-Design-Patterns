@@ -10,8 +10,8 @@ namespace Grafische_editor_Design_Patters
     {
         private readonly string Or;
         private readonly string Loc;
-        private readonly Figuren Fig;
-        public AddOrnament(Figuren F,string O, string L)
+        private readonly BasisFiguur Fig;
+        public AddOrnament(BasisFiguur F,string O, string L)
         {
             Or = O;
             Loc = L;
