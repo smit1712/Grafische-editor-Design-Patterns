@@ -13,7 +13,7 @@ namespace Grafische_editor_Design_Patters
     /// Bevat Recursieve move,resize en group functies.
     /// De Ornamenten zijn Via deze functie gekoppeld aan de canvas Shape
     /// </summary>
-    abstract public class Figuren : IDecorator
+    public class Figuren : IDecorator
     {
         //List met alle Figuren Behorende bij de groep van dit Figuur
         private List<Figuren> Groep = new List<Figuren>();
@@ -26,12 +26,18 @@ namespace Grafische_editor_Design_Patters
         public Figuren Parent { get; private set; }        
         public string type;
         private readonly Canvas Mycanvas;
+        private Idelegatefiguur delegatefiguur;
         public Figuren(Shape S, string T, Canvas C)
         {
             MyFigure = S;
             type = T;
             Mycanvas = C;
             SetPosition(Canvas.GetLeft(S), Canvas.GetTop(S), Canvas.GetRight(S), Canvas.GetBottom(S));
+
+            if (S.GetType() == typeof(Rectangle))
+                delegatefiguur = Rechthoeken.Instance((Rectangle)S);
+            if (S.GetType() == typeof(Ellipse))
+                delegatefiguur = Ellipsen.Instance((Ellipse)S);
         }
         //Zet de location van het figuur. Niet recursief
         public void SetPosition(double L, double T, double R, double B)

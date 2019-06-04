@@ -8,19 +8,33 @@ namespace Grafische_editor_Design_Patters
     /// Rechthoeken erft van Figuren
     /// Hierin staan de Rechthoek specefieke dingen, Voornamelijk het Rechthoek object in de constructor
     /// </summary>
-    class Rechthoeken : Figuren
+    class Rechthoeken : Idelegatefiguur
     {
-        public Rechthoeken(Rectangle R, Canvas C) : base(R, "Rechthoek", C)
+        Rectangle rectangle;
+        private static Rechthoeken _instance;
+        public static Rechthoeken Instance(Rectangle r)
         {
+            if (_instance == null)
+            {
+                _instance = new Rechthoeken(r);
+            }
+            return _instance;
+        }
+        private Rechthoeken(Rectangle r)
+        {
+            rectangle = r;
+        }
 
-        }
-        public override void Select()
+        public string toString()
         {
-            MyFigure.Stroke = Brushes.Black;
+            return "Ellipse";
         }
-        public override void Deselect()
+        public void draw(int top, int left, int bot, int right)
         {
-            MyFigure.Stroke = Brushes.Green;
+            Canvas.SetLeft(rectangle, left);
+            Canvas.SetTop(rectangle, top);
+            Canvas.SetRight(rectangle, right);
+            Canvas.SetBottom(rectangle, bot);
         }
     }
 }

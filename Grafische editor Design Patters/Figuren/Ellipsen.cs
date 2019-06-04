@@ -5,22 +5,37 @@ using System.Windows.Shapes;
 namespace Grafische_editor_Design_Patters
 {
     /// <summary>
-    /// Ellipsen erft van Figuren
     /// Hierin staan de Ellipse specefieke dingen, Voornamelijk het Ellipse object in de constructor
     /// </summary>
-    class Ellipsen : Figuren
+    class Ellipsen : Idelegatefiguur
     {
-        public Ellipsen(Ellipse E, Canvas C) : base(E, "Ellipse", C)
+        Ellipse ellipse;
+        private static Ellipsen _instance;
+        public static Ellipsen Instance(Ellipse e)
         {
+            if (_instance == null)
+            {
+                _instance = new Ellipsen(e);
+                
+            }
+            return _instance;
+        }
 
-        }
-        public override void Select()
+        private Ellipsen(Ellipse e)
         {
-            MyFigure.Stroke = Brushes.Black;
+            ellipse = e;
         }
-        public override void Deselect()
+
+        public string toString()
         {
-            MyFigure.Stroke = Brushes.Green;
+            return "Ellipse";
+        }
+        public void draw(int top,int left, int bot, int right)
+        {
+            Canvas.SetLeft(ellipse, left);
+            Canvas.SetTop(ellipse, top);
+            Canvas.SetRight(ellipse, right);
+            Canvas.SetBottom(ellipse, bot);
         }
     }
 }

@@ -62,7 +62,7 @@ namespace Grafische_editor_Design_Patters
                 newRectangle.SetValue(Canvas.BottomProperty, start.Y);
                 newRectangle.Height = start.Y - end.Y;
             }
-            Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);
+            Figuren RectangleFiguren = new Figuren(newRectangle, "Rechthoek", MyCanvas);
 
             Allfiguren.Add(RectangleFiguren);
             MyCanvas.Children.Add(newRectangle);

@@ -184,7 +184,7 @@ namespace Grafische_editor_Design_Patters
                             Height = position[3] - position[1],
                         };
                         MyCanvas.Children.Add(newRectangle);
-                        Rechthoeken RectangleFiguren = new Rechthoeken(newRectangle, MyCanvas);
+                        Figuren RectangleFiguren = new Figuren(newRectangle, "Rechthoek", MyCanvas);
                         RectangleFiguren.SetPosition(position[0], position[1], position[2], position[3]);
                         templist = new List<Figuren>
                         {
@@ -220,7 +220,7 @@ namespace Grafische_editor_Design_Patters
                             Height = position[3] - position[1],
                         };
                         MyCanvas.Children.Add(NewElipse);
-                        Ellipsen ElipseFiguren = new Ellipsen(NewElipse, MyCanvas);
+                        Figuren ElipseFiguren = new Figuren(NewElipse, "Ellipse",  MyCanvas);
                         ElipseFiguren.SetPosition(position[0], position[1], position[2], position[3]);
                         templist = new List<Figuren>
                         {

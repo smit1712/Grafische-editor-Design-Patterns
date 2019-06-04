@@ -63,7 +63,7 @@ namespace Grafische_editor_Design_Patters
                 newEllipse.SetValue(Canvas.BottomProperty, start.Y);
                 newEllipse.Height = start.Y - end.Y;
             }
-            Ellipsen ELlipsenFiguren = new Ellipsen(newEllipse, MyCanvas);
+            Figuren ELlipsenFiguren = new Figuren(newEllipse, "Ellipse", MyCanvas);
             Allfiguren.Add(ELlipsenFiguren);
             MyCanvas.Children.Add(newEllipse);
         }
